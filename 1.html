@@ -1,0 +1,1571 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ <html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1"><title>
+	竞猜|幸运28_PC蛋蛋
+</title><meta name="Keywords" content="竞猜，幸运28，幸运28走势，在线小游戏，玩游戏赚钱" /><meta name="Description" content="PC蛋蛋竞猜版块，这里为玩家提供幸运28、310竞猜、幸运星等免费在线小游戏，幸运28是PC蛋蛋首创的一款简单有趣的数字竞猜游戏，用户通过了解幸运28游戏规则和技巧，利用幸运28走势图做幸运28分析和统计，享受幸运28无穷的竞猜体验。" /><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /><link href="/css/base.v20150930.css" rel="stylesheet" type="text/css" /><link href="/css/daohang.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/js/jquery-1.6.2.min.js"></script>
+<link href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script> 
+<link href="/css/tm_fc.css" rel="stylesheet" type="text/css" /><link href="/css/main.css" rel="stylesheet" type="text/css" /><link href="/css/fc_help.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/js/AJax.js" language="javascript"></script>
+     <script src="/js/jquery-1.3.min.js" type="text/javascript"></script>
+    <script src="/js/cookie.js" type="text/javascript"></script>
+   <script src="/js/swfobject.js" type="text/javascript"></script>
+    <style type="text/css" >
+    .form_game {
+	font-family: "宋体", Arial;
+	font-size: 14px;
+	text-align: center;
+	width: 100%;
+	color: #FF0000;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	border-top-color: #FFFFFF;
+	border-right-color: #FFFFFF;
+	border-bottom-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+}
+#div_p1
+    {
+        z-index:999999;
+        position:absolute; 
+
+    }
+.fc_kj{width: 650px; height: auto;}
+.fc_kj .titleclose {padding:1px 0 0 10px;height:44px; background: url(/img/fc_img/lqjjj_fcbg.gif) no-repeat; text-align:left; }
+.fc_kj .title {font-size:12px;font-weight:bold;color:#FFF;line-height:23px;border:0px;}
+.fc_kj .close {position:absolute;right:4px;top:2px;width:45px;height:23px;background:url(/img/pg28/fc_kj_close.png) no-repeat 50% 50%;cursor:pointer}
+.fc_kj .close span {display:none;}
+
+
+.fc_kj .content_word {width:472px; margin:0 auto; text-align:left; height:190px; line-height:24px; font-size:14px;}
+
+.xy2820131227{width:934px; height:46px; border:1px solid #ffb91f; margin:0 auto;margin-bottom:2px;}
+.xy2820131227_l{width:466px; border-right:1px solid #ffb91f; height:46px; text-align:center; font-size:12px; line-height:46px; color:#000; float:left;_padding-top:16px;_height:32px; }
+.xy2820131227_r{width:466px; height:46px; text-align:center; font-size:12px; line-height:46px; color:#000; float:right;_padding-top:12px;_height:32px; }
+.xy2820131227_r a{ text-decoration:none; color:#000;}
+
+.xy28_ts_bar{ width:936px; margin:0 auto; height:58px; line-height:26px; }
+.xy28_ts_bar_fl{ float:left; font-size:12px; color:#F00; width:576px; padding-top:20px;}
+.xy28_ts_bar_fl span{ border:1px solid #F00; border-radius:4px; padding:3px 5px;}
+
+.xy28_ts_bar_fm{ float:left; cursor:pointer; width:172px; text-align:center; font-size:14px; font-weight:bold; color:#8b6007; height:38px; border:1px solid #fbd74f; border-radius:40px; line-height:40px; margin-top:13px; }
+.xy28_ts_bar_fr{ float:right; cursor:pointer; width:172px; text-align:center; font-size:14px; font-weight:bold; color:#8b6007; height:38px; border:1px solid #fbd74f; border-radius:40px; line-height:40px; margin-top:13px; background-color:#fbd74f;}
+.xy28_ts_bar_fr span{ color:#F00; font-size:16px;}
+    </style>
+    
+    
+    
+    
+    <script language="javascript" type="text/javascript">
+        function copyToClipBoard() {
+            var clipBoardContent = '';
+            clipBoardContent += "http://www.pceggs.cn/pgComDefault.aspx?ID=24627229"; window.clipboardData.setData("Text", clipBoardContent);
+            alert("地址已经复制到粘贴板!");
+        }
+    </script>
+
+    <script language="javascript" type="text/javascript">
+        function chkResult(v, val) {
+
+            if (val != "-1") {
+                val = val - 10;
+                document.write(v + "<img src='/img/xnbc/number_" + val + ".gif' />");
+            }
+            else {
+                document.write("-");
+            }
+        }
+
+
+
+        function chkStatus(status, lid, ISLOTTERY) {
+            //状态：0投注中，1暂停投注等待开奖，2已开奖            
+            switch (status) {
+                case '0':
+                    {
+                        if (ISLOTTERY == "1") {
+                            document.write("<a class='a0' href='/play/pg28Insert.aspx?LID=" + lid + "' target='_top'>已投注</a>")
+                        }
+                        else {
+                            document.write("<a class='a0' href='/play/pg28Insert.aspx?LID=" + lid + "' target='_top'>投注</a>")
+                        }
+                        break;
+                    }
+                case '1':
+                    {
+                        document.write("<a href='/play/pgMy28Detail.aspx?LID=" + lid + "' target='_top'>开奖中</a>")
+                        break;
+                    }
+                case '2':
+                    {
+                        document.write("<a href='/play/pgMy28Detail.aspx?LID=" + lid + "' target='_top'>已开奖</a>")
+                        break;
+                    }
+            }
+        }
+        function chkwin(val, lid) {
+            if (val != '0') {
+                document.write("<a class='a0' href='/play/pg28Result.aspx?LID=" + lid + "' target='_top' title='查看中奖人名单'> " + val + " </a>");
+            }
+            else {
+                document.write("0");
+            }
+        }
+    </script>
+<script language="javascript" type="text/javascript">
+
+    function transStr(str) {
+        str = str.toString()
+
+        var begin = "";
+        var after = "";
+        var l;
+        var str2 = "";
+        if (str.indexOf(".") > 0) {
+            begin = str.substring(0, str.indexOf("."));
+            after = str.substring(str.indexOf("."), str.length);
+        }
+        else {
+            begin = str;
+        }
+
+        l = begin.length / 3;
+        if (l > 1) {
+            for (var i = 0; i < l; ) {
+                str2 = "," + begin.substring(begin.length - 3, begin.length) + str2;
+                begin = begin.substring(0, begin.length - 3);
+                l = begin.length / 3;
+            }
+            if (after.length < 3) {
+                str2 = begin + str2 + after;
+            } else {
+                str2 = begin + str2 + after
+            }
+            return str2.substring(1);
+        }
+        else {
+            if (after.length < 3) {
+                return str;
+
+            } else {
+                return str;
+            }
+
+        }
+    }
+
+    function SGMoney(Sm, Gm) {
+
+        if (Sm == null || Sm == 0) {
+
+            document.write("-");
+
+        }
+        else {
+            var val = Gm - Sm;
+            if (val >= 0) {
+                val = transStr(val);
+                document.write("<span style='color:red'>" + val + "</span><img src='/img/pub/egg.gif'/>");
+            }
+            else {
+
+                val = transStr(Math.abs(val));
+                document.write("<span style='color:#1B5E00'>-" + val + "</span><img src='/img/pub/egg.gif'/>");
+
+            }
+
+        }
+    }
+
+</script>
+</head>
+<body id="pg28_body">
+  <div id="div_sound" style="display:none"></div>
+<div class='div_full' id='parent_div' style="width:100%; display:none; left: 0px; top: 0px;height:1400px; filter:alpha(opacity=40); -moz-opacity:0.4; -khtml-opacity: 0.4; opacity: 0.4;z-index:1;display:none; ">
+</div> 
+<form name="pagination" method="post" action="./pxya.aspx" id="pagination">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTUyMzk3NDQwMGRkoV847AwnNC7+EADTW92Pc2wbsOI=" />
+</div>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="5B815096" />
+</div> 
+    <input type="hidden" id="soundshow" name="soundshow" value=""/>    
+    <input type="hidden" id="reloadshow" name="reloadshow" value=""/>    
+
+
+<link href="/css/pcdd_num.css" rel="stylesheet" type="text/css" />
+<script src="/js/makeconform.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/cookie.js"></script>
+<script src="/IndexMainStatic/js/Head.js" type="text/javascript"></script>
+<script type="text/javascript">
+    //去除IE6背景缓存
+    document.execCommand("BackgroundImageCache", false, true);
+
+    function addfavorite(a, b) {
+        if (document.all) {
+            window.external.addFavorite('http://www.pceggs.com' + "", "PC蛋蛋-专业体验营销平台");
+        } else if (window.sidebar) {
+            window.sidebar.addPanel("PC蛋蛋-专业体验营销平台", 'http://www.pceggs.com' + "", "");
+        }
+    }
+    function doSomething(evt) {
+        var e = (evt) ? evt : window.event; //判断浏览器的类型，在基于ie内核的浏览器中的使用cancelBubble
+        if (window.event) {
+            e.cancelBubble = true;
+        } else {
+            //e.preventDefault(); //在基于firefox内核的浏览器中支持做法stopPropagation
+            e.stopPropagation();
+        }
+    }
+
+    function answerqenstion() {
+
+        ShowMsgo.show("/activity/201209/dt/dtfc/fuceng/answer.aspx", 740, 610);
+
+
+    }
+
+    function closedd() {
+
+        ShowMsgo.ok();
+    }
+
+    function closelinqu() {
+        ShowMsgo.cancel();
+        window.location.reload(true);
+    }
+
+    function aaddgame() {
+        ShowMsgo.show("/Gain/new_guide_game.aspx", 658, 390);
+    }
+    function aaddgg() {
+        ShowMsgo.show("/Gain/new_guide_gg.aspx", 658, 390);
+    }
+    var isgain = "0";
+    var autoopen = "0";
+    var registdays = "821";
+    var userid = "24627229";
+
+
+    var tohref = window.location.href;
+    //if(tohref.indexOf("bbsPost.aspx")>-1||tohref.indexOf("bbsMain.aspx")>-1||tohref.indexOf("ShowList.aspx")>-1||tohref.indexOf("ShowInfo.aspx")>-1||tohref.indexOf("duobao_index.aspx")>-1||tohref.indexOf("duobao_next.aspx")>-1||tohref.indexOf("duobao_historylist.aspx")>-1||tohref.indexOf("bbsPostShow.aspx")>-1 ){
+
+    $(window).bind("scroll", function () {
+        var top_top = $(document).scrollTop(); //卷上去的高度
+        if (top_top > 0) {
+            $("#topNavUP").css("display", "");
+        } else {
+            $("#topNavUP").css("display", "none");
+        }
+
+    })
+
+    // }
+
+
+
+
+
+
+
+</script>
+
+
+
+
+                 <link rel="stylesheet" type="text/css" href="/css/hongbao.css"/>
+                    
+<style type="text/css">
+<!--
+
+  #totopNava {
+width: 106px;
+z-index: 999998;                                                     /*设置浮动层次*/
+position: fixed;
+bottom: 15px;
+margin-left:965px;                                                /* 其他浏览器下定位，在这里可设置坐标*/
+_position: absolute;                                       /*IE6 用absolute模拟fixed*/
+_top: expression(documentElement.scrollTop + documentElement.clientHeight-560 + "px"); /*IE6 动态设置top位置*/
+/* documentElement.scrollTop 设置浮动元素始终在浏览器最顶，可以加一个数值达到排版效果 */
+height: auto;
+}
+-->
+ </style>
+<!--[if IE 6]>
+ <script type="text/javascript" src="/js/filter.js"></script>
+ <script type="text/javascript">
+ addPngStyle('.index_game3beta_ggw,index_prize3beta_prize_sj_main_m_fc,.nav-title,.nav-title-fy:hover,.selected_s,.header3beta_ggy.grzy_beta3_box_r_cj_jb,.grzy_beta3_box_r_db_jb');
+ DD_belatedPNG.fix(ewInitStyle.styles);
+ </script>
+ <![endif]-->
+<div class="index3beta_topFloat" id="topFloat" style="display: none">
+</div>
+<div id="top_hidden" style="height: 37px; display: none;">
+    &nbsp;</div>
+<a name="totop"></a>
+<div class="header3beta" style=" font-family:'lucida grande',tahoma,arial,'bitstream vera sans',helvetica,sans-serif">
+    <!--topdaohang-->
+    <div class="navigation_top">
+        <div class="sheader_con">
+            <div class="sheader_conl">
+                <ul>
+               <li><a href="/Gain/app.aspx" class="sheader_img_phone" target="_blank" >PC蛋蛋手机版</a></li> 
+                   <li class="sheader_line">&nbsp;</li>
+                   
+                    
+                     <li><a href="/newArea/index.aspx" target="_blank"  style="color: red;">
+                        新人活动</a></li>
+                        <li class="sheader_line">&nbsp;</li>
+                        
+                    <li><a href="/services/ser_index.aspx" target="_parent" onclick="doSomething(event);" >
+                        客服中心</a></li>
+                    <li class="sheader_line">&nbsp;</li>
+                    <li><a href="/help/h.aspx" target="_parent">帮助</a></li>
+                </ul>
+            </div>
+            
+            <div class="sheader_conr">
+                <ul>
+                    <li>
+                        
+                        <a href="/myaccount/MyMsg.aspx" class="sheader_imgxx" style="background: url(../images/public/imgxx.gif)  left center no-repeat;">
+                            
+                                    <span class="sheader_red" style="font-weight: bolder">
+                                        29</span></a> </li>
+                    <li class="sheader_line">&nbsp;</li>
+                    <li><a href="/myaccount/MyCashBox.aspx" class="sheader_img_eggs">小金库：<span class="sheader_red"
+                        style="font-weight: bolder">0</span></a></li>
+                    <li class="sheader_line">&nbsp;</li>
+                    <li><a href="/myaccount/MyMoney/my_zhgk.aspx?id=1" class="sheader_img_eggs">金蛋：<span
+                        class="sheader_red" style="font-weight: bolder">8,434</span></a></li>
+                    <li class="sheader_line">&nbsp;</li>
+                    <li><a href="/myaccount/MyMoney/my_zhgk.aspx?id=1" class="sheader_img_jinbi">金币：<span
+                        class="sheader_red" style="font-weight: bolder">1,222,560</span></a></li>
+                    <li class="sheader_line">&nbsp;</li>
+                    <li><a href="/myaccount/MyMoney/my_zhgk.aspx?id=1" class="sheader_red" style="color: #DB0100;">
+                        我的帐户</a></li>
+                    <li class="sheader_line">&nbsp;</li>
+                    <li>ID：<a href="/pgComUserInfo.aspx?USERID=24627229" class="sheader_blue" style="color: #3D72A4;">24627229
+                    </a><span style="color: #8b8b8b">[<a href="/Logout.aspx" style="color: #8b8b8b;">退出</a>]</span></li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    <!--logo guanggaobg-->
+    
+    <div class="header3beta_con">
+        <div class="header3beta_logo">
+            <a href="/">
+                <img src="/IndexMainStatic/pceggs_logo20160224.png" border="0" /></a>
+        </div>
+        <div class="header3beta_ggy" style="width: 302px;">
+            <div class="pcdd_number">
+                <input name="Head2$WithdrawCount" type="hidden" id="Head2_WithdrawCount" value="7004192" />
+                <b>累计提现兑换人次</b>
+                <ul id="ulTotalBuy">
+                    <li class="pcdd_num">7</li><li class="pcdd_num">,</li><li class="pcdd_num">0</li><li class="pcdd_num">0</li><li class="pcdd_num">4</li><li class="pcdd_num">,</li><li class="pcdd_num">1</li><li class="pcdd_num">9</li><li class="pcdd_num">2</li>
+                    
+                   
+                </ul>
+            </div>
+        </div>
+       <div style="width: 480px;" class="header3beta_banner" id="header3beta_banner">
+             <script type="text/javascript">                 $.getScript("/js/A_Html.js", function () { GetBanner("1", "header3beta_banner"); });</script>
+            <map name="Map" id="Map">
+                <area shape="poly" coords="206,34,346,34,326,73,184,73" href="/activity2014/201404/yxccc/201404_yxccc.aspx"
+                    target="_blank" />
+                <area shape="poly" coords="338,34,480,34,480,73,330,73" href="/activity2014/201404/tbfl/201404_tbfl.aspx"
+                    target="_blank" />
+            </map>
+        </div>
+    </div>
+    <!--daohang-->
+    <div class="navigation" style="text-align: left">
+        <div class="nav-box">
+            <div class="nav-title-sytb">
+            </div>
+            <div id="gz_div" class="gzfc" style="display: none" onmouseout="this.style.display='none'"
+                onmouseover="this.style.display='block'">
+                <div class="gzfc_m">
+                    <ul>
+                        <li><a href="http://1926403203.qzone.qq.com" target="_blank">
+                            <img src="/IndexMainStatic/img/qzone_.png" />&nbsp;QQ空间</a></li>
+                        <li><a href="http://weibo.com/pceggs2006" target="_blank">
+                            <img src="/IndexMainStatic/img/sina_wb.png" />&nbsp;新浪微博</a></li>
+                        <li><a href="http://t.qq.com/pceggs2006" target="_blank">
+                            <img src="/IndexMainStatic/img/tx_wb.png" />&nbsp;腾讯微博 </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                
+                <div id="totopNava">
+                    <a href="#totop" style="display: none;" id="topNavUP">
+                        
+                        <img src="/ShowPrize/images/tlq_beta3_totopimg.gif" width="47" />
+                        
+                    </a>
+                    
+						
+						
+           
+                    <!--<img src="/img/activity2015/pf_yc.jpg" border="0" usemap="#Mapwx11"  style="cursor:pointer;margin-top:3px;" />
+				 	<map name="Mapwx11" id="Mapwx1">
+										<area shape="rect" coords="78,0,105,30" href="/invite/inviteindex.aspx"  style="outline:none;"/>
+										<area shape="rect" coords="-1,29,104,146" href="/invite/inviteindex.aspx"  style="outline:none;"/>
+										<area shape="rect" coords="1,2,77,29" href="/invite/inviteindex.aspx"  style="outline:none;"/>
+				 </map>  -->
+                    <!--<img src="/img/activity2015/vip_right.jpg" border="0" usemap="#Mapwx1"  style="cursor:pointer;margin-top:3px;" />
+				 	<map name="Mapwx1" id="Mapwx1">
+										<area shape="rect" coords="78,0,105,30" href="/nbbs/bbsPost.aspx?PostID=3903112&topicid=7&ret=1"  style="outline:none;"/>
+										<area shape="rect" coords="-1,29,104,146" href="/nbbs/bbsPost.aspx?PostID=3903112&topicid=7&ret=1"  style="outline:none;"/>
+										<area shape="rect" coords="1,2,77,29" href="/nbbs/bbsPost.aspx?PostID=3903112&topicid=7&ret=1"  style="outline:none;"/>
+				 </map>  -->
+         
+              <!--      <img src="/img/activity2015/youxi2.png" border="0" usemap="#Mapwx2" style="cursor: pointer;
+                        margin-top: 3px;" />
+                    <map name="Mapwx2" id="Mapwx2">
+                        <area shape="rect" coords="1,1,115,275" href="/activity2016/201604/ccc/201604_yxccc.aspx"
+                            target="_blank" style="outline: none;" />
+                        <area shape="rect" coords="0,276,110,334" href="/activity2016/201604/ccc2/201604_yxccc2.aspx"
+                            target="_blank" style="outline: none;" />
+                        <area shape="rect" coords="-1,334,125,390" href="/activity2016/201604/ccc3/201604_yxccc3.aspx"
+                            target="_blank" style="outline: none;" />
+                    </map> -->
+					
+					
+								
+		<!--   <a href="/nbbs/bbsPost.aspx?PostID=3916493&topicid=7&ret=1" target="_blank">
+                        <img src="/IndexMainStatic/hd1.jpg" border="0" style="cursor: pointer; margin-top: 3px;" />
+                    </a>  -->
+					
+					
+					
+<!--头部右侧广告位-->
+
+
+ 
+ <a href="http://www.pceggs.com/activity2017/201801/qprb/qprb.aspx" target="_blank">
+ <img src="/IndexMainStatic/hd303.jpg" border="0" style="cursor: pointer; margin-top: 3px;" />
+ </a>
+ 
+ 
+ 
+ <a href="http://www.pceggs.com/activity2015/201512/SignIn/201512_SignIn.aspx" target="_blank">
+ <img src="/IndexMainStatic/hd218.jpg" border="0" style="cursor: pointer; margin-top: 3px;" />
+ </a>
+ 
+ 
+
+ <a href="http://www.pceggs.com/activity2018/201801/ccc/2018_yxccc.aspx" target="_blank">
+ <img src="/IndexMainStatic/hd418.jpg" border="0" style="cursor: pointer; margin-top: 3px;" />
+ </a>
+
+
+ <a href="http://www.pceggs.com/activity2017/201712/ccc/2017_yxccc.aspx" target="_blank">
+ <img src="/IndexMainStatic/hd417.jpg" border="0" style="cursor: pointer; margin-top: 3px;" />
+ </a>
+ 
+ 
+ <a href="http://www.pceggs.com/activity2017/201712/hdyx/hdrb.aspx" target="_blank">
+ <img src="/IndexMainStatic/hd517.jpg" border="0" style="cursor: pointer; margin-top: 3px;" />
+ </a>
+ 
+ 
+
+
+
+<style>
+.bgzz{ background:url(/IndexMainStatic/bg.png) no-repeat; width:78px; height:25px; color:#FFF; font-family: "微软雅黑"; font-size:14px; padding:17px 0 0 30px;margin-top: 3px;}
+
+</style>
+
+<div class="bgzz">800013154</div>
+
+
+
+
+					
+			
+					<!--   <a href="/activity2015/201512/SignIn/201512_SignIn.aspx" target="_blank">
+                        <img src="/IndexMainStatic/qd_ycbanner.png" border="0" style="cursor: pointer; margin-top: 3px;" />
+                    </a>  -->
+				
+					
+				
+					
+					
+					
+					
+					
+                    <!--	
+ -->
+              
+	        
+			
+			<div  style=" position:absolute;bottom:30px;left:-1080px;">
+ 
+<!-- 	<a href="http://www.pceggs.com/newtb/s11TBIndex.aspx" target="_blank"><img src="/activity2017_11/images/t_hb1.png" border="0"  style="cursor:pointer;margin-top:3px;"/></a> 左侧广告位-->
+
+    </div> 
+            
+			    
+			
+			
+			
+			
+                    <!--		<div  style="height:80px;">
+	&nbsp;
+			</div> -->
+                    <!--	<div  style=" position:relative;top:140px;left:6px;">
+		
+			</div>  -->
+                    <!--	
+	
+                    <img src="/images/pcegggs_xzrk_150129.jpg" border="0" usemap="#Mapwx3" id="pceggsmoblie3"    style="cursor:pointer;margin-top:3px;"/>
+										<map name="Mapwx3" id="Mapwx3">
+										<area shape="rect" coords="78,0,105,30" href="/iphone/iphoneindex.aspx" target="_blank" style="outline:none;"/>
+										<area shape="rect" coords="-1,29,104,146" href="/iphone/iphoneindex.aspx" target="_blank" style="outline:none;"/>
+										<area shape="rect" coords="1,2,77,29" href="/iphone/iphoneindex.aspx" target="_blank" style="outline:none;"/>
+										</map>
+
+ -->
+                </div>
+            </div>
+            <ul class="floatleft">
+                <li class=""><a href="/" class="nav-title nav-first" target="_parent"><span>&nbsp;&nbsp;&nbsp;首&nbsp;页</span></a></li>
+                
+                <li class=""><a href="/Gain/GnGameAll.aspx" class="nav-title" target="_parent">
+                    <span>游戏试玩</span></a></li>
+                <li class="" style="position: relative;"><a href="/Gain/GnGameQP.aspx" class="nav-title"
+                    target="_parent"><span>玩棋牌</span></a> </li>
+					
+					
+					   
+                   <li class=""><a href="/Gain/GnGameSjsw.aspx" class="news nav-title" target="_parent">
+                    <span>手机试玩</span></a></li>
+                    
+					
+            
+					  
+                    <li class=" "><a href="/Gain/Gnmain1.aspx" class="nav-title" target="_parent"><span>
+                    广告体验</span></a></li>
+            
+			
+			
+                <li class="  "><a href="/play/pxya.aspx" class="nav-title selected" target="_parent">
+                    <span>娱乐大厅</span></a></li>
+
+                           <li class=" "><a href="/newtb/NewTBIndex.aspx" class="nav-title" target="_parent">
+                    <span>购物返利</span></a></li>
+				
+                
+                   
+					
+					
+					
+           
+					      
+				
+					
+					
+                <li class=" "><a href="/prize/PrizeMain.aspx?u=24627229" class="nav-title" target="_parent">
+                    <span>兑奖</span></a></li>
+     
+            </ul>
+            <ul class="floatright">
+
+
+              <li><a href="/invite/inviteindex.aspx" class="nav-title2" target="_parent">
+                    <span>邀请</span></a></li>
+			
+            	   <li style="background: url(/images/title_bg_d.png) center right no-repeat; width: 1px;
+                    font-size: 0px; line-height: 0px;">&nbsp;</li>
+			    <li><a href="/duobao/duobao_index.aspx" class="nav-title2" target="_parent">
+                    <span>夺宝</span></a></li>
+					   <li style="background: url(/images/title_bg_d.png) center right no-repeat; width: 1px;
+                    font-size: 0px; line-height: 0px;">&nbsp;</li>
+
+
+              <li><a href="/vip/vip_index.aspx" class="nav-title2" target="_parent">
+                    <span>VIP会员</span></a></li>
+                <li style="background: url(/images/title_bg_d.png) center right no-repeat; width: 1px;
+                    font-size: 0px; line-height: 0px;">&nbsp;</li>
+
+
+
+
+                   <li><a href="/ShowPrize/ShowList.aspx?topicid=2" class="nav-title2" target="_parent">
+                    <span>晒奖</span></a></li>
+                <li style="background: url(/images/title_bg_d.png) center right no-repeat; width: 1px;
+                    font-size: 0px; line-height: 0px;">&nbsp;</li>
+                <li><a href="/ShowPrize/ShowList_gg.aspx?topicid=9" class="nav-title2" target="_parent"><span>公告</span></a></li>
+         
+				
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="tgl_public_1118" style="display: block; margin-top: -5px;">
+    <div class="tglxx_public_1118">
+        <script>ShowWords()</script>
+    </div>
+    <div class="tgldt_public_1118" style="height:25px; overflow:hidden;">
+        <style>
+            #demo
+            {
+                overflow: hidden;
+                white-space: nowrap;
+                width: 492px;
+            }
+            #indemo
+            {
+                float: left;
+                width: 800%;
+            }
+            #demo1, #demo2
+            {
+                float: left;
+            }
+        </style>
+        <div id="demo">
+            <div id="indemo">
+                <div id="demo1">
+                </div>
+                <div id="demo2">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var FeedData = new Array({title:'蛋友<a href="/FriendInfor/FriendPrize.aspx?userid=17624909">17624909</a>兑换了<a href="/prize/prizeDetail.aspx?ISSUE=ZC0112">"盛大点券100元直充（盛大通行证）"</a>',userid:'17624909',datatype:'奖品',time:'14分钟前',url:''},{title:'蛋友26026703提现了50元',userid:'26026703',datatype:'提现',time:'15分钟前',url:''},{title:'蛋友<a href="/FriendInfor/FriendPrize.aspx?userid=15569949">15569949</a>兑换了<a href="/prize/prizeDetail.aspx?ISSUE=ZC0266">"移动话费100元直充"</a>',userid:'15569949',datatype:'奖品',time:'27分钟前',url:''},{title:'蛋友25456081提现了100元',userid:'25456081',datatype:'提现',time:'53分钟前',url:''});
+    var msg = "";
+    var speed=40; //数字越大速度越慢 20
+    var tab=document.getElementById("demo"); 
+    var tab1=document.getElementById("demo1"); 
+    var tab2=document.getElementById("demo2"); 
+    var MyMar = null;
+    function Marquee(){ 
+        if(tab2.offsetWidth-tab.scrollLeft<=0) {
+            tab.scrollLeft -= tab1.offsetWidth;
+        }else{ 
+            tab.scrollLeft++; 
+        } 
+    }
+    
+    tab.onmouseover=function() {clearInterval(MyMar)}; 
+    tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)}; 
+    
+    if(FeedData != null && FeedData.length > 0) {
+        
+        for(var i = 0; i < FeedData.length; i ++) {
+                   msg += "<span>【" + FeedData[i].datatype + "】</span>" +FeedData[i].title+" " +FeedData[i].time + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+	    
+        }
+        MyMar=setInterval(Marquee,speed); 
+    }
+ 
+    tab1.innerHTML = msg;
+    tab2.innerHTML = msg;
+
+
+    
+</script>
+<script type="text/javascript">
+    function closeTop(day) {
+        document.getElementById("topFloat").style.display = "none";
+        document.getElementById("top_hidden").style.display="none";
+        SetCookie_top('dd_top_url', '1', day);
+    }
+    function SetCookie_top(name, value, day)
+    {
+       var exp = new Date();//1天过期代码,下面是当天过期代码
+        exp.setTime(exp.getTime() + parseInt(day) * 24 * 60 * 60 * 1000);
+       document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ";path=/;domain=pceggs.com";
+
+   //var curDate = new Date();  
+  
+                    //当前时间戳  
+               //     var curTamp = curDate.getTime();  
+  
+                    //当日凌晨的时间戳,减去一毫秒是为了防止后续得到的时间不会达到00:00:00的状态  
+                //    var curWeeHours = new Date(curDate.toLocaleDateString()).getTime() - 1;  
+  
+                    //当日已经过去的时间（毫秒）  
+                //    var passedTamp = curTamp - curWeeHours;  
+  
+                    //当日剩余时间  
+                 //   var leftTamp = 24 * 60 * 60 * 1000 - passedTamp;  
+                 //   var leftTime = new Date();  
+                 //   leftTime.setTime(leftTamp + curTamp);  
+                    //创建cookie  
+                 //  document.cookie = name + "=" + escape(value) + ";expires=" + leftTime.toGMTString() + ";path=/;domain=pceggs.com";
+    }
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+    function getCookie_top(name)//取cookies函数        
+    {
+        var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+        if (arr != null) return unescape(arr[2]); return null;
+
+    }
+    function showSiteTop(i) {
+        if (i < 70) {
+            var hh = i - 70;
+           // document.getElementById("topFloat").style.top = hh + "px";
+            i = i + 1;
+            setTimeout("showSiteTop(" + i + ")", 30);
+        }
+    }
+    var mob_status = 1;
+    //alert(vip_level);
+    if(mob_status != 1){
+        if (getCookie_top('dd_top_url') != 1) {
+            //showSiteTop(0);
+           // document.getElementById("topFloat").style.display = "";
+            //document.getElementById("top_hidden").style.display="";
+        }
+    }
+    function showSiteTop2(i) {
+        if (i <= 22) {
+            i++;
+            setTimeout("showSiteTop2(" + i + ")", 50);
+        }
+    }
+
+</script>
+<script>
+
+    function closeWX(i) {
+        document.getElementById("pceggsmoblie" + i).style.display = "none";
+    }
+
+</script>
+<script type="text/javascript" language="javascript">
+    function closeMapCCC() {
+        document.getElementById("201311yxccc").style.display = "none";
+    }
+    
+ $(document).ready(function () {
+        
+        
+
+    });
+ 
+ 
+ 
+</script>
+<script>
+
+    $(function () {
+        $(".hb_tc_ssy .close").click(function () {
+            $(".hb_tc_ssy").css("display", "none");
+        })
+        $(".hb_tc_know").click(function () {
+            $(".hb_tc_ssy").css("display", "none");
+        })
+    })
+	
+	
+	
+</script>
+ 
+
+<div class="content">
+<div class="content_top" >&nbsp;</div>
+<div class="content_middle" style="height:auto;"  >
+
+
+
+ 
+
+<div style="width:1248px">
+	<div class="title_game" style="float:left; width:940px;">
+	    <a href="/play/pxya.aspx"><img src="/img/pub/ico_6.gif" width="98" height="27" border="0" /></a>
+	    <a href="/play/Pg310.aspx"><img src="/img/pub/ico_26.gif" width="98" height="27" border="0" /></a> 
+<!--	 <a href="/play/mlyqp.aspx"><img src="/img/pub/ico_0813.gif" width="98" height="27" border="0" /></a> -->
+<!--	 <a href="/play/qyqp.aspx"><img src="/img/pub/ico_0814.gif" width="98" height="27" border="0" /></a> -->
+	 	 <a href="http://adtaste.pceggs.com/IndexMainStatic/qp/shoujibanqp.aspx?id=286224"  target="_blank"><img src="/play/images/3386/ico_0813.gif" width="98" height="27" border="0" /></a>
+		<!--  <a href="/play/asqp.aspx"><img src="/play/images/as/ico_0813.gif" width="98" height="27" border="0" /></a> -->
+		 <a href="http://adtaste.pceggs.com/IndexMainStatic/qp/shoujibanqp.aspx?id=286469"  target="_blank"><img src="/play/images/1891/ico_0813.gif" width="98" height="27" border="0" /></a> 
+		  <a href="http://adtaste.pceggs.com/IndexMainStatic/qp/shoujibanqp1.aspx?id=286626"  target="_blank"><img src="/play/images/yiqiniu/ico_0813.gif" width="98" height="27" border="0" /></a> 
+		   <a href="http://adtaste.pceggs.com/IndexMainStatic/qp/shoujibanqp.aspx?id=286474"  target="_blank"><img src="/play/images/56qp/ico_0813.gif" width="98" height="27" border="0" /></a> 
+		     <a href="http://adtaste.pceggs.com/IndexMainStatic/qp/shoujibanqp.aspx?id=289606"  target="_blank"><img src="/play/images/284206.jpg" width="98" height="27" border="0" /></a> 
+			  <a href="http://adtaste.pceggs.com/IndexMainStatic/qp/shoujibanqp.aspx?id=289204"  target="_blank"><img src="/play/images/289204.jpg" width="98" height="27" border="0" /></a> 
+	</div>
+	<div style=" float:right; width:188px; height:25px;vertical-align:middle; line-height:25px;text-align:right"> 
+	<!--<a href="/nbbs/bbsPost.aspx?PostID=3904733&topicid=7&ret=1" target="_blank">呼吁共同抵制一切非法外围赌博活动</a>-->&nbsp;&nbsp;
+
+	</div>
+</div>
+
+
+
+
+
+<div class="game_line"></div>
+<div style="width:950px;float:left;"  align="center" id="pxya">
+             <script type="text/javascript">                 $.getScript("/js/A_Html.js", function () { GetBanner("14", "pxya"); });</script>
+			 </div>
+
+      
+<table width="936" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="FCF8DA">
+  <tr>
+    <td width="50%" height="24" align="left" valign="middle" style="padding-left:10px"><a href="/play/pgMy28.aspx" target="_parent" class="abt12_1">我的投注</a> <span class="wh12">|</span> <a href="28zs.aspx" target="_parent" class="abt12_2"><strong>走势</strong></a> <span class="wh12">|</span> <a href="/play/Introduce_Lucky28.aspx" class="abt12_1"><img src="../img/pub/new28.gif" alt=""/>&nbsp;幸运28介绍</a> <span class="wh12"> |</span><a href="/play/Pgnrb.aspx" class="abt12_1">牛人榜</a>
+    </td>
+    <td width="50%" align="right" valign="middle" style="padding-right:10px"><a href="javascript:ShowMsgo.show('/adcomate/PGetGoldEggs.aspx',465,480)"  class="abt12_1">领取救济金</a><span class="wh12"> |</span><a href="/play/pg28ModesEdit.aspx" target="_parent" class="abt12_1">投注模式编辑</a><span class="wh12">|</span> <a href="/play/Autoplay.aspx" target="_parent" class="abt12_1">自动投注</a></td>
+  </tr>
+</table>
+
+ <div class="xy28_ts_bar">
+    <div class="xy28_ts_bar_fl"><span>重要提醒</span>  “幸运28”仅供PC蛋蛋网站用户参与，呼吁网友共同抵制一切非法外围赌博活动！</div>
+    <a href="/Gain/app.aspx" target="_blank"><div class="xy28_ts_bar_fm">下载手机版玩幸运28</div></a>
+    <a href="/vip/vip_index.aspx" target="_blank"><div class="xy28_ts_bar_fr">开通 <span>VIP</span> 尊享特权</div></a>
+
+
+ </div>
+
+  <table width="936" border="0" cellspacing="0" cellpadding="0" align="center"> 
+  <tr valign="top">
+  <td align="center" height='30' width="936" valign="middle" >
+    
+          <div class="xy2820131227" style=" height:90px;  margin-top:8px; margin-bottom:8px;" >
+        <div class="xy2820131227_l"  style=" height:90px;  width:623px">
+
+        <div style="  text-align:center; height:50px;line-height:60px;">
+         
+          <span id="LReload" class="form_game"></span> 
+    <span id="LSound" class="form_game"></span><span id="Sound" ></span><span id="RemainTitle" ></span><span id="RemainS" ></span>
+        &nbsp;&nbsp;&nbsp;
+        </div>
+        <div style="  text-align:center; height:40px; line-height:30px;  ">
+              幸运28第<strong style="color:#ff0000;">869324</strong>期开奖结果：7 + 5 + 2 =<img src="/img/xnbc/number_14.gif" width="25" height="25" align="absmiddle" />&nbsp;&nbsp;&nbsp;[<a href="http://www.bwlc.gov.cn/bulletin/index.jsp?id=3" target="_blank">官方查询</a>]&nbsp;&nbsp;[<a href="/play/Introduce_Lucky28.aspx" target="_blank">游戏帮助</a>] 
+       
+        </div>
+         
+      </div>
+
+
+  <div  class="xy2820131227_r" style="width:309px;" >
+        <a href="/play/Introduce_Lucky28.aspx" target="_blank"> <img src="/IndexMainStatic/pc28/xy28_rightwzb.gif" width="309px" height="90px" /></a>
+        
+         </div>
+</div>
+          
+<script language="JavaScript">  
+//控制声音
+var imgSound    = '';
+var pg28sound   = ''
+ 
+
+if(pg28sound==2)
+{
+   imgSound   = '<img id="imgclose" src="/img/pub/S_Close.gif" onclick="setSound(1)" align="absmiddle" style="cursor:pointer" title="打开开奖声音">&nbsp;';
+}
+else
+{
+   imgSound   = '<img id="imgopen" src="/img/pub/S_Open.gif" onclick="setSound(2)" align="absmiddle" style="cursor:pointer" title="关闭开奖声音">&nbsp;';
+}
+
+document.getElementById("LSound").innerHTML = imgSound;
+
+
+//控制刷新
+var imgReload    = '';
+var pg28Reload   = ''
+
+if(pg28Reload==2)
+{
+   imgReload   = '<img id="reloadopen" src="/img/pub/sx_c.gif" onclick="setReLoad(1)" align="absmiddle" style="cursor:pointer" title="关闭自动刷新">&nbsp;';
+}
+else
+{
+   imgReload   = '<img id="reloadclose" src="/img/pub/sx_h.gif" onclick="setReLoad(2)" align="absmiddle" style="cursor:pointer" title="打开自动刷新">&nbsp;';
+}
+
+document.getElementById("LReload").innerHTML = imgReload;
+
+
+
+
+
+function setSound(issound)
+{
+    var url = "Pg28SoundDo.aspx?issound="+issound;
+    var XmlHttp;
+
+    var request = new SigmaRequest();
+    request.open("post",url,true);
+    request.send();
+
+
+
+
+    document.getElementById("soundshow").value=issound
+
+
+    if(issound==2)
+    {
+       imgSound   = '<img id="imgclose" src="/img/pub/S_Close.gif" onclick="setSound(1)" align="absmiddle" style="cursor:pointer" title="打开开奖声音">&nbsp;';
+       document.getElementById("LSound").innerHTML = imgSound;
+    }
+    else
+    {
+       imgSound   = '<img id="imgopen" src="/img/pub/S_Open.gif" onclick="setSound(2)" align="absmiddle" style="cursor:pointer" title="关闭开奖声音">&nbsp;';
+       document.getElementById("LSound").innerHTML = imgSound;
+    }
+}
+
+
+function setReLoad(isreload)
+{
+    var url = "Pg28ReLoadDo.aspx?isreload="+isreload;
+    var XmlHttp;
+
+    var request = new SigmaRequest();
+    request.open("post",url,true);
+    request.send();
+
+
+
+
+    document.getElementById("reloadshow").value=isreload
+
+
+    if(isreload==2)
+    {
+       imgReload   = '<img id="reloadopen" src="/img/pub/sx_c.gif" onclick="setReLoad(1)" align="absmiddle" style="cursor:pointer" title="关闭自动刷新">&nbsp;';
+       document.getElementById("LReload").innerHTML = imgReload;      
+    }
+    else
+    {
+       imgReload   = '<img id="reloadclose" src="/img/pub/sx_h.gif" onclick="setReLoad(2)" align="absmiddle" style="cursor:pointer" title="打开自动刷新">&nbsp;';
+       document.getElementById("LReload").innerHTML = imgReload;
+    }
+}
+
+var stopSencond=72;
+function GetRTime(ctime)
+{    
+    var nS=ctime;  
+
+    if(nS>0)
+    {
+      //alert(document.getElementById('check_reload').checked);
+      //alert(nS);
+      nS = nS-1;
+      stopSencond=stopSencond-1;
+      if(stopSencond<0){
+       document.getElementById("RemainS").innerHTML="已经停止竞猜，还有<strong style='color:#ff0000;'>"+nS+"</strong>秒开奖 ";
+
+      }else{
+            document.getElementById("RemainS").innerHTML="还有<strong style='color:#ff0000;'>"+stopSencond+"</strong>秒停止竞猜，<strong style='color:#ff0000;'>"+nS+"</strong>秒开奖 "; 
+      
+      }	  
+      document.getElementById("RemainTitle").innerHTML="第<strong>869325</strong>期"; 
+      if(0==1){
+      document.getElementById("RemainTitle").innerHTML="<span class='form_game'>距离第869325期开奖还有</span>";  
+      document.getElementById("RemainS").innerHTML="<span class='form_game'>"+nS+"</span><span class='form_game'>秒</span>";   
+      } 
+   
+
+    }
+    else
+    {
+       document.getElementById("RemainTitle").innerHTML="<strong>第869325期</strong>";  
+       if (isReload == 2)
+       {
+           document.getElementById("RemainS").innerHTML= "正在开奖中请等待！";
+       }
+       else
+       {
+           document.getElementById("RemainS").innerHTML= "已开奖 <a href='pxya.aspx' style='color:red; font-size:12px;'>请刷新</a>";
+       }
+
+       nS = nS-1;
+       var isReload = document.getElementById('reloadshow').value;
+       if (isReload == 2)
+       {
+           if(nS == -10 || nS == -15 || nS == -20 || nS == -25)
+           {
+               window.location.href='pxya.aspx';
+           }         
+       }
+     	  
+       var isopen =document.getElementById("soundshow").value
+       if(isopen!="2") //是否打开声音 2 ：声音关闭   其它：打开
+       {
+           if(nS<=-2)
+            {
+               try{
+               
+			   }catch(e){}
+            }
+            else
+            {
+               try{ 
+           			swfobject.embedSWF('/img/pub/xy28open.swf', 'div_sound', '0', '0', '8.0.0');
+			   }catch(e){}
+            }
+       }
+       //alert(nS);
+
+    }
+    setTimeout("GetRTime("+nS+")",1000);  
+}   
+GetRTime(152);   
+</script> 
+ 
+   </td>
+</tr>
+</table>
+  <table width="936" border="0" cellpadding="0" cellspacing="1" bgcolor="#FFB91F" align="center" style="color:Black;margin-bottom:4px;" id="panel" >
+
+
+ <tr align="center">
+     <td width="9%" background="/img/pub/xy28_bg.gif" style="height: 28px">期号</td>
+      <td width="12%" background="/img/pub/xy28_bg.gif" style="height: 28px">开奖时间</td>
+      <td width="20%" background="/img/pub/xy28_bg.gif" style="height: 28px">开奖结果</td>
+      <td width="10%" background="/img/pub/xy28_bg.gif" style="height: 28px">已投注数</td>
+      <td width="16%" background="/img/pub/xy28_bg.gif" style="height: 28px">金蛋总数</td>
+      <td width="11%" background="/img/pub/xy28_bg.gif" style="height: 28px">中奖人数</td>
+      <td width="12%" background="/img/pub/xy28_bg.gif" style="height: 28px">金蛋盈亏</td>
+      <td width="10%" background="/img/pub/xy28_bg.gif" style="height: 28px">参与</td>
+
+    </tr>
+ 
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869329</td>
+              <td height="28" bgcolor="#FFFFFF">01-27 11:05</td>
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkResult('', '-1');</script></td>
+              <td bgcolor="#FFFFFF">0</td>
+              <td bgcolor="#FFFFFF">0<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    chkwin('0', '992158');</script></td>
+            
+                          <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkStatus('0', '992158', '0');</script></td>
+            </tr>
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869328</td>
+              <td height="28" bgcolor="#f8f8f8">01-27 11:00</td>
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkResult('', '-1');</script></td>
+              <td bgcolor="#f8f8f8">16</td>
+              <td bgcolor="#f8f8f8">400,501<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    chkwin('0', '992157');</script></td>
+              
+                          <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkStatus('0', '992157', '0');</script></td>
+            </tr>    
+
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869327</td>
+              <td height="28" bgcolor="#FFFFFF">01-27 10:55</td>
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkResult('', '-1');</script></td>
+              <td bgcolor="#FFFFFF">53</td>
+              <td bgcolor="#FFFFFF">529,934<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    chkwin('0', '992156');</script></td>
+            
+                          <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkStatus('0', '992156', '0');</script></td>
+            </tr>
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869326</td>
+              <td height="28" bgcolor="#f8f8f8">01-27 10:50</td>
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkResult('', '-1');</script></td>
+              <td bgcolor="#f8f8f8">267</td>
+              <td bgcolor="#f8f8f8">117,024,452<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    chkwin('0', '992154');</script></td>
+              
+                          <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkStatus('0', '992154', '0');</script></td>
+            </tr>    
+
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869325</td>
+              <td height="28" bgcolor="#FFFFFF">01-27 10:45</td>
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkResult('', '-1');</script></td>
+              <td bgcolor="#FFFFFF">10,025</td>
+              <td bgcolor="#FFFFFF">4,033,429,673<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    chkwin('0', '992152');</script></td>
+            
+                          <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkStatus('0', '992152', '0');</script></td>
+            </tr>
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869324</td>
+              <td height="28" bgcolor="#f8f8f8">01-27 10:40</td>
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkResult('7 + 5 + 2 =', '24');</script></td>
+              <td bgcolor="#f8f8f8">46,136</td>
+              <td bgcolor="#f8f8f8">7,664,361,975<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    chkwin('1809', '992150');</script></td>
+              
+                          <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992150', '0');</script></td>
+            </tr>    
+
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869323</td>
+              <td height="28" bgcolor="#FFFFFF">01-27 10:35</td>
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkResult('4 + 0 + 5 =', '19');</script></td>
+              <td bgcolor="#FFFFFF">46,102</td>
+              <td bgcolor="#FFFFFF">7,802,535,398<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    chkwin('1772', '992148');</script></td>
+            
+                          <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992148', '0');</script></td>
+            </tr>
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869322</td>
+              <td height="28" bgcolor="#f8f8f8">01-27 10:30</td>
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkResult('4 + 9 + 3 =', '26');</script></td>
+              <td bgcolor="#f8f8f8">46,055</td>
+              <td bgcolor="#f8f8f8">7,855,130,105<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    chkwin('1908', '992147');</script></td>
+              
+                          <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992147', '0');</script></td>
+            </tr>    
+
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869321</td>
+              <td height="28" bgcolor="#FFFFFF">01-27 10:25</td>
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkResult('3 + 0 + 8 =', '21');</script></td>
+              <td bgcolor="#FFFFFF">46,701</td>
+              <td bgcolor="#FFFFFF">7,775,330,602<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    chkwin('1910', '992146');</script></td>
+            
+                          <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992146', '0');</script></td>
+            </tr>
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869320</td>
+              <td height="28" bgcolor="#f8f8f8">01-27 10:20</td>
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkResult('7 + 1 + 1 =', '19');</script></td>
+              <td bgcolor="#f8f8f8">46,632</td>
+              <td bgcolor="#f8f8f8">7,639,566,922<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    chkwin('1781', '992144');</script></td>
+              
+                          <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992144', '0');</script></td>
+            </tr>    
+
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869319</td>
+              <td height="28" bgcolor="#FFFFFF">01-27 10:15</td>
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkResult('8 + 4 + 2 =', '24');</script></td>
+              <td bgcolor="#FFFFFF">46,317</td>
+              <td bgcolor="#FFFFFF">7,441,182,133<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    chkwin('1877', '992142');</script></td>
+            
+                          <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992142', '0');</script></td>
+            </tr>
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869318</td>
+              <td height="28" bgcolor="#f8f8f8">01-27 10:10</td>
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkResult('5 + 7 + 0 =', '22');</script></td>
+              <td bgcolor="#f8f8f8">46,688</td>
+              <td bgcolor="#f8f8f8">8,084,842,820<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    chkwin('1823', '992140');</script></td>
+              
+                          <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992140', '0');</script></td>
+            </tr>    
+
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869317</td>
+              <td height="28" bgcolor="#FFFFFF">01-27 10:05</td>
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkResult('7 + 6 + 9 =', '32');</script></td>
+              <td bgcolor="#FFFFFF">45,961</td>
+              <td bgcolor="#FFFFFF">7,879,762,871<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    chkwin('1676', '992138');</script></td>
+            
+                          <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992138', '0');</script></td>
+            </tr>
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869316</td>
+              <td height="28" bgcolor="#f8f8f8">01-27 10:00</td>
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkResult('8 + 5 + 1 =', '24');</script></td>
+              <td bgcolor="#f8f8f8">45,188</td>
+              <td bgcolor="#f8f8f8">7,734,766,845<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    chkwin('1780', '992136');</script></td>
+              
+                          <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992136', '0');</script></td>
+            </tr>    
+
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869315</td>
+              <td height="28" bgcolor="#FFFFFF">01-27 09:55</td>
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkResult('5 + 0 + 6 =', '21');</script></td>
+              <td bgcolor="#FFFFFF">45,211</td>
+              <td bgcolor="#FFFFFF">7,513,050,303<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    chkwin('1965', '992135');</script></td>
+            
+                          <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992135', '0');</script></td>
+            </tr>
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869314</td>
+              <td height="28" bgcolor="#f8f8f8">01-27 09:50</td>
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkResult('1 + 8 + 8 =', '27');</script></td>
+              <td bgcolor="#f8f8f8">44,903</td>
+              <td bgcolor="#f8f8f8">7,398,466,685<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    chkwin('1849', '992134');</script></td>
+              
+                          <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992134', '0');</script></td>
+            </tr>    
+
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869313</td>
+              <td height="28" bgcolor="#FFFFFF">01-27 09:45</td>
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkResult('0 + 6 + 6 =', '22');</script></td>
+              <td bgcolor="#FFFFFF">45,127</td>
+              <td bgcolor="#FFFFFF">7,959,147,177<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    chkwin('1718', '992133');</script></td>
+            
+                          <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992133', '0');</script></td>
+            </tr>
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869312</td>
+              <td height="28" bgcolor="#f8f8f8">01-27 09:40</td>
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkResult('9 + 3 + 7 =', '29');</script></td>
+              <td bgcolor="#f8f8f8">44,923</td>
+              <td bgcolor="#f8f8f8">7,638,280,215<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    chkwin('1770', '992132');</script></td>
+              
+                          <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992132', '0');</script></td>
+            </tr>    
+
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869311</td>
+              <td height="28" bgcolor="#FFFFFF">01-27 09:35</td>
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkResult('0 + 5 + 0 =', '15');</script></td>
+              <td bgcolor="#FFFFFF">44,636</td>
+              <td bgcolor="#FFFFFF">7,145,615,974<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    chkwin('1545', '992131');</script></td>
+            
+                          <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#FFFFFF"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992131', '0');</script></td>
+            </tr>
+
+            <tr align="center" bgcolor="#FFFFFF">
+              <td height="32" bgcolor="#FFFaC7">869310</td>
+              <td height="28" bgcolor="#f8f8f8">01-27 09:30</td>
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkResult('8 + 1 + 9 =', '28');</script></td>
+              <td bgcolor="#f8f8f8">43,875</td>
+              <td bgcolor="#f8f8f8">7,034,035,590<img src="/img/pub/egg.gif"/></td>
+              <td height="28" bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    chkwin('1677', '992130');</script></td>
+              
+                          <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                                    SGMoney('0', '0');</script></td>
+            
+              <td bgcolor="#f8f8f8"><script language="javascript" type="text/javascript">                                        chkStatus('2', '992130', '0');</script></td>
+            </tr>    
+
+    <tr align="center" bgcolor="#FFFFFF">
+      <td height="28" colspan="8" bgcolor="#FFFFFF">
+          
+<script language="javascript" type="text/javascript">
+    function onsubmit(CurrentPageIndex)
+    {
+        document.getElementById("CurrentPageIndex").value = CurrentPageIndex ;
+        //document.getElementById("Condition").value = Condition ;
+        document.getElementById("pagination").submit();
+    }
+</script>
+<style type="text/css">
+<!--
+.phoenix a:hover { color: #003366; text-decoration: none ; }
+.phoenix a:link { color: #3366cc; text-decoration: none; }
+.phoenix a:visited { color: #3366cc; text-decoration: none; }
+.phoenix .point14{ font-family:webdings; font-size:14px; }
+.phoenix .common{ font-family:Tahoma; font-size:12px; }
+-->
+</style>
+<table cellspacing="2" cellpadding="2" style="font-family:Tahoma; font-size:12px; text-align:center; border:0; width:100%;" class="phoenix">
+<!--<form id="pagination" method="post" action="/play/pxya.aspx">-->
+<input id="CurrentPageIndex" name="CurrentPageIndex" type="hidden" />
+  <tr valign="middle">
+    <td align="left">
+    <span title="记录总数" style="cursor:pointer;">
+        <span class="common">&nbsp;&nbsp;记录总数：</span><span style="color:#000066; font-weight:bold;">204</span>
+    </span>
+    <span title="总页数" style="cursor:pointer;">
+        <span class="common">&nbsp;&nbsp;总页数：</span><span style="color:#000066;font-weight:bold;">21</span>
+    </span>
+    &nbsp;&nbsp;
+    <span title="当前页" style="cursor:pointer;">
+       <span class="common"> &nbsp; &nbsp;当前页：</span><span style="color:#CC0000;font-weight:bold;">1</span>
+    </span>
+    </td>
+	<td align="center">
+	<span class="point14"> | </span>
+	 <span class='point14' title='首页'><img  src='/img/pub/pgblack-1.png' border='0'></span> 
+	 <span class='point14' title='前十页'><img  src='/img/pub/pgblack-2.png' border='0'></span> 
+     <span class='point14' title='前一页'><img  src='/img/pub/pgblack-3.png' border='0'></span> 
+     <span style='color:#CC0000; font-weight:bold;'>1</span>  <a href='javascript:onsubmit(2);' target='_top'>2</a>  <a href='javascript:onsubmit(3);' target='_top'>3</a>  <a href='javascript:onsubmit(4);' target='_top'>4</a>  <a href='javascript:onsubmit(5);' target='_top'>5</a>  <a href='javascript:onsubmit(6);' target='_top'>6</a>  <a href='javascript:onsubmit(7);' target='_top'>7</a>  <a href='javascript:onsubmit(8);' target='_top'>8</a>  <a href='javascript:onsubmit(9);' target='_top'>9</a>  <a href='javascript:onsubmit(10);' target='_top'>10</a> 
+     <a href='javascript:onsubmit(2);' target='_top'><span class='point14' title='后一页'><img  src='/img/pub/pgblue-4.png' border='0'></span></a> 
+     <a href='javascript:onsubmit(11);' target='_top'><span class='point14' title='后十页'><img  src='/img/pub/pgblue-5.png' border='0'></span></a> 
+     <a href='javascript:onsubmit(21);' target='_top'><span class='point14' title='尾页'><img  src='/img/pub/pgblue-6.png' border='0'></span></a> 
+    <span class="point14"> | </span>
+	</td>
+	<td align="right">
+	<span title="当前记录数" style="cursor:pointer;">
+	    <span class="common">&nbsp;&nbsp;当页记录数：</span><span style="color:#CC0000;font-weight:bold;">10</span>
+	</span>
+	</td>
+  </tr>
+  <!--</form>-->
+</table>
+
+      </td>
+    </tr>
+
+  </table>  
+ 
+ 
+ 
+ 
+<table width="936" border="0" cellspacing="0" cellpadding="0">
+<tr><td height="5"></td></tr>
+    <tr>
+      <td>
+         
+      </td>
+    </tr></table></div>
+<div class="content_bottom">&nbsp;</div>
+
+
+
+
+
+<div id="div_p1" class="fc_kj"  style="display:none;">
+
+<img src="/img/xnbc/yqts.png" border="0" usemap="#Mapc" />
+<map name="Mapc" id="Mapc"><area shape="rect" coords="228,281,426,331" href="javascript:closetip1();" /></map>
+</div>
+	</div>
+</div>
+
+
+
+
+<!--  <div class="help_show" id="help_show" style="display:none;">
+	
+		  <div class="show_kj kjauto1" style="width:36px;height:26px;cursor:pointer;" id="kjauto1"></div>
+		  <p class="hand" style="left:10px;"></p> 
+		  <div class="show_tips tips1" style="width:150px;left:40px;">
+				
+			  <div class="t_zone" >
+			   第一步、点此开始您的28游戏。
+				</div>
+	      </div>
+		  
+      </div> -->
+
+<!--  <div class="help_show" id="help_show1" style="display:none;">
+	
+		  <div class="show_kj kjauto1" style="width:216px;height:22px;cursor:pointer;" id="kjauto2" ></div>
+
+		  <div class="show_tips tips2" style="top:32px;left:0px;">
+		  <div class="gb_an" ><a href="javascript:closetip()" ><img src="/img/fc_hand/gn_an.gif" border="0" /></a></div>
+			  <div class="t_zone" >
+			  <div style="margin-top:10px;">&nbsp;&nbsp;&nbsp;&nbsp;恭喜您，投注成功！请耐心等待开奖或者参加下期投注。</div>	
+ <div style="margin-top:10px;" >&nbsp;&nbsp;&nbsp;&nbsp;<a href="/play/Introduce_Lucky28.aspx" style="text-decoration:underline;color:#3B5888;">幸运28介绍</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/play/PG28Trend.aspx" style="text-decoration:underline;color:#3B5888;">幸运28走势图</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/play/Pgnrb.aspx" style="text-decoration:underline;color:#3B5888;">牛人榜</a></div>
+				</div>
+	      </div>
+		  
+      </div> -->
+
+<script>
+    /*
+    //滚动
+    function sc1() {
+    document.getElementById("div_p1").style.top = (document.documentElement.scrollTop + document.body.scrollTop + (document.documentElement.clientHeight - document.getElementById("div_p1").offsetHeight) / 2) + "px";
+    document.getElementById("div_p1").style.left = (document.documentElement.scrollLeft + (document.documentElement.clientWidth - document.getElementById("div_p1").offsetWidth) / 2) + "px";
+    }
+    window.onscroll = sc1;
+    // resultflag ：0 表示没有投注记录，1：表示有投注记录
+    var resultflag = "121";
+    // handflag ：2 表示投注成功后返回
+    var handflag = readcookie("handflag");
+    //handflag="2";
+    //如果是投注成功
+    if (handflag == "2") {
+    setcookie("handflag", "");
+    //$("#help_show").css("display", "none");
+    //$("#help_show1").css("display", "");
+    } else {
+
+    if (resultflag == "0") {
+    setcookie("handflag", "1");
+    ////弹出浮层
+    $("#div_p1").css("display", "");
+    // document.getElementById("parent_div").style.display = '';
+    sc1();
+    } else {
+    setcookie("handflag", "0");
+    $("#div_p1").css("display", "none");
+    }
+    }
+    */
+
+
+
+    var tuzhusize = $("#panel").find("tr td:last:contains('投注')").size();
+    $("#panel").find("tr td:last:contains('投注')").each(function (i, dom) {
+        if (tuzhusize == i + 1) {
+            var l = $(this).offset().left + 23;
+            var t = $(this).offset().top + $(document).scrollTop();
+            var hf = $(this).find("a:frist").attr("href");
+            var dom = $(this).find("a:frist");
+            // $("#help_show").css("left", l);
+            // $("#help_show").css("top", t);
+            $("#kjauto1").click(function () {
+                window.location.href = hf;
+            })
+
+        }
+    }
+)
+
+    var l1 = $("#RemainTitle").offset().left - 28;
+    var t1 = $("#RemainTitle").offset().top + $(document).scrollTop() - 8;
+    //$("#help_show1").css("left", l1);
+    //$("#help_show1").css("top", t1);
+
+
+    function closetip() {
+
+        // document.getElementById('help_show1').style.display = 'none';
+    }
+
+    function closetip1() {
+        // $("#help_show").css("display", "");手
+        // $("#help_show1").css("display", "none");
+        document.getElementById("div_p1").style.display = 'none';
+        // document.getElementById("parent_div").style.display = 'none';
+
+    }
+</script>
+
+
+
+
+
+    <style type="text/css">
+<!--
+
+  #totopNava1 {
+width: 106px;
+z-index: 999998;                                                     /*设置浮动层次*/
+position: fixed;
+bottom: 18px;
+margin-left:817px;                                                /* 其他浏览器下定位，在这里可设置坐标*/
+_position: absolute;                                       /*IE6 用absolute模拟fixed*/
+_top: expression(documentElement.scrollTop + documentElement.clientHeight-560 + "px"); /*IE6 动态设置top位置*/
+/* documentElement.scrollTop 设置浮动元素始终在浏览器最顶，可以加一个数值达到排版效果 */
+height: auto;
+}
+-->
+ </style>
+
+<div class="footer_larger">
+   <div class="footer" style="width:780px;">
+<!---
+	 
+<div  id="totopNava1">
+   
+<script charset='utf-8' type='text/javascript' src='http://wpa.b.qq.com/cgi/wpa.php?key=XzgwMDAxMzE1NF8yMzc5MzRfODAwMDEzMTU0Xw'></script>
+      
+</div>
+--->
+<div>
+<div class="footer_left"  style="  width:100px;"><a href="http://www.idinfo.cn/SignHandle?userID=3301972003000443" target="_blank"><img src="/img/head/base/gs.gif" width="55" height="56" /></a>
+</div>
+<div class="footer_center"  style="padding-top:10px;width:480px;">
+  <p><a href="http://www.pceggs.com/pchome/pc_home.aspx" class="footer-a">关于PC蛋蛋</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.pceggs.com/help/h.aspx?id=11" class="footer-a">服务条款</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/newggfw/gg_index.html" class="footer-a">广告服务</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/newggfw/gg_hzkh.html" class="footer-a">合作商家</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/pchome/pc_home.aspx" class="footer-a">蛋友生活</a></p>
+  <p><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602004295"  class="footer-a"><img src="/images/head/logo/police.png" style="float:left;"/><p style="float:left;height:20px;line-height:20px;color:#939393;">浙公网安备 33010602004295号</p></a>&nbsp;&nbsp;<a href="http://www.miibeian.gov.cn/" target="_blank" class="footer-a">ICP证：浙B2-20090227</a>浙网文[2016]0139-039号</p>
+<!--  <p> Copyright 2006-2016，版权所有pceggs.com </p> -->
+</div>
+<div class="footer_right">
+<a key ="553dfdde58725379d18ae5b8"  logo_size="124x47"  logo_type="business"  href="http://www.anquan.org" ><script src="http://static.anquan.org/static/outer/js/aq_auth.js"></script></a>
+
+</div>
+</div>
+<div style="display:none"> 
+<script src="https://s19.cnzz.com/z_stat.php?id=1262695176&web_id=1262695176" language="JavaScript"></script>
+</div></div></div>
+
+</div>
+    </form>
+ <span style="background-color:White;color:White">
+ FROM MC:10:53:27
+ </span>
+</body>
+</html>
