@@ -1,8 +1,8 @@
-import sys, threading, time
+import sys, threading, time, os
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import (QWidget, QLabel, QVBoxLayout, QLineEdit, QPushButton)
 from PyQt5.QtGui import QPixmap
-import requests
+import requests, Data_Base
 from bs4 import BeautifulSoup
 
 
@@ -10,6 +10,7 @@ class Main_win(QWidget):
     def __init__(self):
         super(Main_win, self).__init__()
         self.initUI()
+        _database = Data_Base.DataBase()
 
     def initUI(self):
         self.setWindowTitle('登录窗口')
@@ -72,12 +73,16 @@ class Main_win(QWidget):
                     betting_time = list_text[3].string
                     betting_status = (list_text[15].string).split("'")[1]
                     betting_result = (list_text[5].string).split("'")[3]
-                except (Exception)  as e:
+                except (Exception) as e:
                     print(repr(e))
                 else:
                     print("投注期:" + betting_period, "投注时间:" + betting_time, "开奖结果:" + betting_result,
                           "开奖状态:" + betting_status)
             time.sleep(2)
+
+    def collect_data(self):
+
+        pass
 
     def submit_site(self):
         pst_data = {'txt_UserName': self.name.text(), 'txt_PWD': self.password.text(), '__VIEWSTATE': self.__VIEWSTATE,
