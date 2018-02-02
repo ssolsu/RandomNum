@@ -54,8 +54,10 @@ class Auto_Proxy:
             if (req.text).strip() == ip_address.strip():
                 print('数据一致')
                 param = [ip_address, ip_port, ip_location, ip_anomyous, ip_type, ip_speed]
-                sql1 = 'insert into ip values (%s,%s,%s,%s,%s,%s)'
-                Sqlite_db.Sqlite_db().update_db(sql1,param)
+                sql1 = "insert into ipnum values ('%s','%s','%s','%s','%s','%s')" % (
+                    ip_address, ip_port, ip_location, ip_anomyous, ip_type, ip_speed)
+                # print(sql1)
+                Sqlite_db.Sqlite_db().update_db(sql1)
             else:
                 print('数据与预期不一致')
 

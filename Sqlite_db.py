@@ -6,30 +6,24 @@ class Sqlite_db:
     TABLE_NAME = ''
     SHOW_SQL = True
 
-    def create_db(self, data_name):
-        data_name = 'ip.db'
-        if data_name[-3:] != '.db':
-            print('请输入正确数据库名')
-        else:
-            try:
-                conn = sqlite3.connect(data_name)
-                # 可以检查是否有表，如果有表则先删除，再创建
-                create_table_sql = '''CREATE TABLE student (
-                                          id int(5) NOT NULL,
+    def create_db(self):
+        try:
+            conn = sqlite3.connect('ip.db')
+            # 可以检查是否有表，如果有表则先删除，再创建
+            create_table_sql = '''CREATE TABLE ipnum (
                                           ip_address varchar(20) DEFAULT NULL,
                                           ip_port varchar(20) DEFAULT NULL,
                                           ip_location varchar(20) DEFAULT NULL,
                                           ip_anomyous varchar(20) DEFAULT NULL,
                                           ip_type varchar(20) DEFAULT NULL,
-                                          ip_speed varchar(20) DEFAULT NULL,
-                                          PRIMARY KEY (id)
+                                          ip_speed varchar(20) DEFAULT NULL
                                         )'''
-                conn.execute(create_table_sql)
-                conn.commit()
-                print("Table created successfully");
-                conn.close()
-            except Exception as e:
-                print(repr(e))
+            conn.execute(create_table_sql)
+            conn.commit()
+            print("Table created successfully")
+            conn.close()
+        except Exception as e:
+            print(repr(e))
 
     def get_conn(self):
         conn = ''
@@ -39,11 +33,11 @@ class Sqlite_db:
             self.create_db('ip.db')
         return conn
 
-    def update_db(self, sql,param):
+    def update_db(self, sql):
         result = False
         if os.path.exists('ip.db'):
             conn = sqlite3.connect('ip.db')
-            conn.execute(sql,param)
+            conn.execute(sql)
             conn.commit()
             result = True
             print('更新成功')
@@ -73,4 +67,5 @@ class Sqlite_db:
 
 
 if __name__ == "__main__":
-    db()
+    db = Sqlite_db()
+    db.create_db()
