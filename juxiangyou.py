@@ -9,7 +9,8 @@ from bs4 import BeautifulSoup
 class Main_win(QWidget):
     def __init__(self):
         super(Main_win, self).__init__()
-        self.initUI()
+        # self.initUI()
+        self.do_16()
 
     def initUI(self):
         self.setWindowTitle('juxiangyou Window')
@@ -33,6 +34,7 @@ class Main_win(QWidget):
             "Referer": "http://www.juxiangyou.com/",
             "User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64;Trident/5.0)"
         }
+        # 通过访问登录界面返回Cookies访问验证码页面，然后合并提交cookies登录
         url_1 = 'http://www.juxiangyou.com/login/index'
         req_1 = requests.get(url_1, headers=self.header)
         print(req_1.cookies.values())
@@ -42,6 +44,7 @@ class Main_win(QWidget):
         req_2.cookies.update(req_1.cookies)
         self.reqcookies = req_2.cookies
         print(self.reqcookies)
+        # PyQt5 加载图片数据，访问验证码页面放回的byte格式数据
         self.photo.loadFromData(req_2.content)
         self.label.setPixmap(self.photo)
         self.layout.addWidget(self.name)
@@ -50,11 +53,13 @@ class Main_win(QWidget):
         self.layout.addWidget(self.label)
         self.layout.addWidget(self.sub_button)
 
+    # 36进制转换公式方法
     def baseN(self, num, b):
         return ((num == 0) and "0") or (
             self.baseN(num // b, b).lstrip("0") + "0123456789abcdefghijklmnopqrstuvwxyz"[num % b])
 
     def submit_site(self):
+        flag = False
         base_time = int(time.time()) * 1000
         x_sign = self.baseN(base_time, 36)
         post_head = {"Accept": "application/json, text/javascript, */*; q=0.01",
@@ -68,22 +73,50 @@ class Main_win(QWidget):
                      "User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)",
                      "X-Requested-With": "XMLHttpRequest"}
         try:
-            # print('x_sign:' + x_sign + 's:' + self.s.cookies)
+            # 为header字典添加一个X-sign标识，毫秒级时间戳36进制
             post_head['X-Sign'] = x_sign
+            # 服务器接受str格式，把字典格式json格式转化
             a = json.dumps({"c": "index", "fun": "login", "account": self.name.text().strip(),
                             "password": self.password.text().strip(),
                             "verificat_code": self.vali.text().strip(),
                             "is_auto": 'false'})
+            # 毫秒级时间戳，同时作为postdata数据发现服务器
             pst_data = {'jxy_parameter': a, 'timestamp': base_time}
-
-            print(post_head)
-            print(pst_data)
             url = 'http://www.juxiangyou.com/login/auth'
-            self.req = requests.post(url, data=pst_data, cookies=self.reqcookies, headers=post_head,
-                                     allow_redirects=False)
-            print(self.req.content)
+            # Post数据服务器，cookies使用登录页面与验证码 合并cookies提交
+            req = requests.post(url, data=pst_data, cookies=self.reqcookies, headers=post_head,
+                                allow_redirects=False)
+
+            if req.text.find('10000') > 0:
+                print('登录成功，等待3秒，开始循环查询网页')
+                # 登录成功，设定全局访问cookies
+                self.gol_cookies = req.cookies
+                flag = True
+                time.sleep(3)
+            elif req.text.find('10003') > 0:
+                print('验证码或者密码错误')
+            elif req.text.find('10005') > 0:
+                print('密码输入错误，只有5次机会哦')
+            else:
+                print('莫名错误！！')
         except Exception as e:
             print(repr(e))
+        return flag
+
+    def do_16(self):
+        url = 'http://www.juxiangyou.com/fun/play/speed16/index'
+        # req = requests.get(url, cookies=self.gol_cookies, headers=self.header)
+        soup = BeautifulSoup(open('2.html'), 'lxml')
+        tr_text = soup.find_all('tr', limit=24)
+        # print(tr_text[1:])
+        for strx in tr_text[1:]:
+            list_text = strx.contents
+            # print(list_text)
+            vote_peroid = list_text[1].string
+            vote_time = list_text[3].string
+            vote_result = list_text[5].find('span').text
+            if vote_result != '':
+                print('开奖期数:' + vote_peroid, '开奖时间：' + vote_time, '开奖结果：' + vote_result)
 
 
 if __name__ == "__main__":
