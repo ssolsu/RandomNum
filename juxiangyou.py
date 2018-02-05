@@ -1,16 +1,16 @@
-import sys, threading, time, os
+import sys, time, os
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import (QWidget, QLabel, QVBoxLayout, QLineEdit, QPushButton)
 from PyQt5.QtGui import QPixmap
-import requests, json
+import requests, json, threading
 from bs4 import BeautifulSoup
 
 
-class Main_win(QWidget):
+class Main_win(QWidget, threading.Thread):
     def __init__(self):
         super(Main_win, self).__init__()
         # self.initUI()
-        self.do_16()
+        # self.do_16()
 
     def initUI(self):
         self.setWindowTitle('juxiangyou Window')
@@ -103,24 +103,56 @@ class Main_win(QWidget):
             print(repr(e))
         return flag
 
-    def do_16(self):
-        url = 'http://www.juxiangyou.com/fun/play/speed16/index'
-        # req = requests.get(url, cookies=self.gol_cookies, headers=self.header)
-        soup = BeautifulSoup(open('2.html'), 'lxml')
-        tr_text = soup.find_all('tr', limit=24)
-        # print(tr_text[1:])
-        for strx in tr_text[1:]:
-            list_text = strx.contents
-            # print(list_text)
-            vote_peroid = list_text[1].string
-            vote_time = list_text[3].string
-            vote_result = list_text[5].find('span').text
-            if vote_result != '':
-                print('开奖期数:' + vote_peroid, '开奖时间：' + vote_time, '开奖结果：' + vote_result)
+    def do_16(self, name):
+        while True:
+            url = 'http://www.juxiangyou.com/fun/play/speed16/index'
+            # req = requests.get(url, cookies=self.gol_cookies, headers=self.header)
+            soup = BeautifulSoup(open('2.html'), 'lxml')
+            tr_text = soup.find_all('tr', limit=24)
+            print(len(tr_text))
+            # 查询当前投注信息
+            vote_info = soup.find('label', attrs={'class': 'J_jcEnd'})
+            # 判断是否刚好在开奖
+            if (vote_info.text).find('正在开奖') > 0:
+                print('正在开奖，等待5秒')
+                time.sleep(5)
+            else:
+                # 如果没有开奖，则查询当前投注期
+                try:
+                    vote_current = vote_info.find_all('span')
+                    # 结束标识，查询
+                    end_flag = (vote_info.text).find('截止投注')
+                    if end_flag > 0:
+                        print(vote_current[0].string + '期已经截止投注')
+                    else:
+                        print('当前期' + vote_current[0].string + '剩余' + vote_current[1].string + '秒投注')
+                        self.vote_retime = vote_current[1].string
+                except Exception as e:
+                    print('搜索资料出错，列表错误')
+            # print(tr_text)
+            for strx in tr_text[1:7]:
+                try:
+                    list_text = strx.contents
+                    # print(list_text)
+                    vote_peroid = list_text[1].string
+                    vote_time = list_text[3].string
+                    vote_result = list_text[5].find('span').text
+                    if vote_result != '':
+                        print('开奖期数:' + vote_peroid, '开奖时间：' + vote_time, '开奖结果：' + vote_result)
+                except Exception as e:
+                    print('搜索数据错误，列表出错')
+            dealy_time = int(self.vote_retime) + 30
+            print('延时%s刷新' % dealy_time)
+            time.sleep(dealy_time)
+
+    def por(self):
+        th1 = threading.Thread(target=self.do_16, args=(self,))
+        th1.start()
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     mw = Main_win()
     mw.show()
+    mw.por()
     sys.exit(app.exec_())
