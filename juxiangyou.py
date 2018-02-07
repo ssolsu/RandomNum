@@ -12,7 +12,6 @@ class Main_win(QWidget):
         super(Main_win, self).__init__()
         self.initUI()
         self.t1 = Thread()
-        # self.do_16()
 
     def initUI(self):
 
@@ -117,13 +116,27 @@ class Main_win(QWidget):
 
 
 def do_16():
+    # 初始化判断是否错误,错误的次数
+    wrong = 1
+    vote_flag = 2
+    header = {
+        "Accept": "text/html, application/xhtml+xml, */*",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN",
+        "Connection": "Keep-Alive",
+        "Host": "www.juxiangyou.com",
+        "Referer": "http://www.juxiangyou.com/",
+        "User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64;Trident/5.0)"
+    }
+
     while True:
         vote_retime = 0
+        current_period = ''
+        multiple = 1
         url = 'http://www.juxiangyou.com/fun/play/speed16/index'
-        req = requests.get(url, cookies=gol_cookies, headers=Main_win().header)
+        req = requests.get(url, cookies=gol_cookies, headers=header)
         soup = BeautifulSoup(req.text, 'lxml')
         tr_text = soup.find_all('tr', limit=24)
-        print(len(tr_text))
         # 查询当前投注信息
         vote_info = soup.find('label', attrs={'class': 'J_jcEnd'})
         # 判断是否刚好在开奖
@@ -141,6 +154,7 @@ def do_16():
                 else:
                     print('当前期' + vote_current[0].string + '剩余' + vote_current[1].string + '秒投注')
                     vote_retime = int(vote_current[1].string)
+                    current_period = vote_current[0].string
             except Exception as e:
                 print('搜索资料出错，列表错误')
         # print(tr_text)
@@ -148,16 +162,47 @@ def do_16():
             try:
                 list_text = strx.contents
                 # print(list_text)
-                vote_peroid = list_text[1].string
-                vote_time = list_text[3].string
-                vote_result = list_text[5].find('span').text
-                if vote_result != '':
-                    print('开奖期数:' + vote_peroid, '开奖时间：' + vote_time, '开奖结果：' + vote_result)
+                last_peroid = list_text[1].string
+                last_time = list_text[3].string
+                last_result = list_text[5].find('span').text
+                if last_result != '':
+                    print('上期期数:' + last_peroid, '开奖时间：' + last_time, '开奖结果：' + last_result)
             except Exception as e:
                 print('搜索数据错误，列表出错')
+        if current_period != '' and int(last_result) > 7 and int(last_result) < 14:
+            # 如果当前期不为空，并且可投注 投注
+            # 这个部分还需要判断上一起是否为正确，如果不正确，倍数翻倍，如果正确，倍数归1---------
+            pass
+            # 复数
+            if int(last_result) % 2 == 0:
+                # 投注中单
+                vote_thing(current_period, int(last_result), 0, multiple)
+
+            elif int(last_result) % 2 == 1:
+                # 投注中双
+                vote_thing(current_period, int(last_result), 1, multiple)
+
+        else:
+            # 不为中，是边，那判断上期我有投注吗？
+            # 这个部分是考虑如何判断倍数问题
+            pass
         dealy_time = vote_retime + 30
         print('延时%s刷新' % dealy_time)
         time.sleep(dealy_time)
+
+
+def vote_thing(vote_current, last_result, sp_flag, multiple):  # 负责投注的函数
+    list_num_ = [1, 3, 6, 10, 15, 21, 25, 2700, 27, 2500, 21, 1500, 10, 6, 3, 1]
+    if sp_flag == 0:
+
+        jxy_parameter = {"fun": "lottery", "c": "quiz", "items": "speed16", "lssue": vote_current,
+                         "lotteryData": ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0",
+                                         "0"]}
+        print('投注买中单和上一期结果,倍数为:' + multiple)
+        pass
+    else:
+        print('投注买中单和上一期结果,倍数为:' + multiple)
+        pass
 
 
 class Thread(QThread):
