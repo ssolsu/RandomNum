@@ -2,7 +2,7 @@ import sys, time, os
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import (QWidget, QLabel, QVBoxLayout, QLineEdit, QPushButton)
 from PyQt5.QtGui import QPixmap
-import requests, json
+import requests, json, traceback
 from PyQt5.QtCore import QThread
 from bs4 import BeautifulSoup
 
@@ -157,6 +157,7 @@ def do_16():
                     current_period = vote_current[0].string
             except Exception as e:
                 print('搜索资料出错，列表错误')
+                print('traceback.format_exc():%s' % traceback.format_exc())
         # print(tr_text)
         for strx in tr_text[1:7]:
             try:
@@ -166,21 +167,29 @@ def do_16():
                 last_time = list_text[3].string
                 last_result = list_text[5].find('span').text
                 if last_result != '':
-                    print('上期期数:' + last_peroid, '开奖时间：' + last_time, '开奖结果：' + last_result)
+                    last_result = int(last_result)
+                    print('上期期数:', last_peroid, '开奖时间：', last_time, '开奖结果：', last_result)
+                else:
+                    last_result = 0
             except Exception as e:
                 print('搜索数据错误，列表出错')
-        if current_period != '' and int(last_result) > 7 and int(last_result) < 14:
+                print('traceback.format_exc():%s' % traceback.format_exc())
+        if current_period != '' and last_result > 7 and last_result < 14:
             # 如果当前期不为空，并且可投注 投注
             # 这个部分还需要判断上一起是否为正确，如果不正确，倍数翻倍，如果正确，倍数归1---------
             pass
             # 复数
-            if int(last_result) % 2 == 0:
+            if int(current_period) - int(last_peroid) == 1:
+                print('当前期减上一起为1,数据没有错误')
+            if last_result % 2 == 0:
                 # 投注中单
-                vote_thing(current_period, int(last_result), 0, multiple)
+                print('上期结果是中双')
+                vote_thing(current_period, last_result, 0, multiple)
 
-            elif int(last_result) % 2 == 1:
+            elif last_result % 2 == 1:
                 # 投注中双
-                vote_thing(current_period, int(last_result), 1, multiple)
+                print('上期结果是中单')
+                vote_thing(current_period, last_result, 1, multiple)
 
         else:
             # 不为中，是边，那判断上期我有投注吗？
@@ -192,17 +201,22 @@ def do_16():
 
 
 def vote_thing(vote_current, last_result, sp_flag, multiple):  # 负责投注的函数
-    list_num_ = [1, 3, 6, 10, 15, 21, 25, 2700, 27, 2500, 21, 1500, 10, 6, 3, 1]
-    if sp_flag == 0:
+    list_num = [1, 3, 6, 10, 15, 21, 25, 27, 27, 25, 21, 15, 10, 6, 3, 1]
+    if sp_flag == 0:  # 投注中单
+        list_num[6] = list_num[6] * 10 * multiple
+        list_num[8] = list_num[8] * 10 * multiple
+        list_num[10] = list_num[10] * 10 * multiple
+        list_num[last_result - 3] = list_num[last_result - 3] * 10
+        print('投注买中单和上一期结果,倍数为:' + str(multiple))
+        pass
+    else:  # 投注中双
+        print('投注买中单和上一期结果,倍数为:' + str(multiple))
+        list_num[5] = list_num[5] * 10 * multiple
+        list_num[7] = list_num[7] * 10 * multiple
+        list_num[9] = list_num[9] * 10 * multiple
+        list_num[last_result - 3] = list_num[last_result - 3] * 10
 
-        jxy_parameter = {"fun": "lottery", "c": "quiz", "items": "speed16", "lssue": vote_current,
-                         "lotteryData": ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0",
-                                         "0"]}
-        print('投注买中单和上一期结果,倍数为:' + multiple)
-        pass
-    else:
-        print('投注买中单和上一期结果,倍数为:' + multiple)
-        pass
+    print('经过修改后，投注的额度是列表是：', list_num)
 
 
 class Thread(QThread):
@@ -213,7 +227,8 @@ class Thread(QThread):
         try:
             do_16()
         except Exception as e:
-            print(repr(e))
+            print('traceback.print_exc():', traceback.print_exc())
+            print('traceback.format_exc():%s' % traceback.format_exc())
 
 
 if __name__ == "__main__":
