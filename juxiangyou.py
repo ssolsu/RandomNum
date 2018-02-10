@@ -1,4 +1,5 @@
-import sys, time, os
+# -*- coding: utf-8 -*-
+import sys, time, os, Sqlite_16
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import (QWidget, QLabel, QVBoxLayout, QLineEdit, QPushButton)
 from PyQt5.QtGui import QPixmap
@@ -56,7 +57,6 @@ class Main_win(QWidget):
         self.layout.addWidget(self.sub_button)
 
     def submit_site(self):
-
         global gol_cookies
         flag = False
         base_time = int(time.time()) * 1000
@@ -126,7 +126,6 @@ def do_16():
     while True:
         vote_retime = 0
         current_period = ''
-        multiple = [0, 1, 2, 4, 6, 8, 16, 18, 20, 23, 26, 30, 34, 40]
         multiple = [0, 1, 3, 7, 15, 31, 63, 127, 255, 23, 26, 30, 34, 40]
         url = 'http://www.juxiangyou.com/fun/play/speed16/index'
         req = requests.get(url, cookies=gol_cookies, headers=header)
@@ -218,6 +217,59 @@ def do_16():
         time.sleep(dealy_time)
 
 
+def auto_data():
+    post_head = {"Accept": "application/json, text/javascript, */*; q=0.01",
+                 "Accept-Encoding": "gzip, deflate",
+                 "Accept-Language": "zh-cn",
+                 "Cache-Control": "no-cache",
+                 "Connection": "Keep-Alive",
+                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                 "Host": "www.juxiangyou.com",
+                 "Referer": "http://www.juxiangyou.com/fun/play/speed16/index",
+                 "User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)",
+                 "X-Requested-With": "XMLHttpRequest"}
+
+    sq16 = Sqlite_16.Sqlite_db()
+    conn = sq16.get_conn()
+    for x in range(1, 45):
+        try:
+            base_time = int(time.time()) * 1000
+            x_sign = baseN(base_time, 36)
+            # 为header字典添加一个X-sign标识，毫秒级时间戳36进制
+            post_head['X-Sign'] = x_sign
+            # 服务器接受str格式，把字典格式json格式转化
+            a = json.dumps({"c": "quiz", "fun": "getEachList", "items": "speed16", "pageSize": 23, "pageIndex": x})
+            b = json.dumps({"items": "speed16"})
+            # 毫秒级时间戳，同时作为postdata数据发现服务器
+            pst_data = {'jxy_parameter': a, 'timestamp': base_time, 'params': b, 'xtpl': 'fun/private/jc-index-tbl'}
+            url = 'http://www.juxiangyou.com/fun/play/interaction'
+            # Post数据服务器，cookies使用登录页面与验证码 合并cookies提交
+            req = requests.post(url, data=pst_data, cookies=gol_cookies, headers=post_head, allow_redirects=False)
+            vote_data = json.loads(req.text)
+            print(req.text)
+            print(type(vote_data))
+            if vote_data['code'] == 10000:
+                print('数据反馈正常，开始循环查询')
+                for x in vote_data['itemList']:
+                    period = x['num']
+                    vote_time = x['date']
+                    jcjg1 = x['jcjg1']
+                    jcjg2 = x['jcjg2']
+                    state = x['state']
+                    print(type(period), type(vote_time), type(jcjg1), type(jcjg2), type(state))
+                    if state == 1:
+                        print('已开奖期数', period)
+                        sql = "insert into pc16 values ('" + period + "','" + vote_time + "','" + jcjg1 + "','" + str(
+                            jcjg2) + "','" + str(state) + "')"
+                        sq16.update_db(sql)
+                    else:
+                        print('没开奖期数', period)
+        except Exception as e:
+            print(repr(e))
+        time.sleep(0.5)
+
+
+
 def vote_thing(vote_current, last_result, sp_flag, multiple, expend_list):  # 负责投注的函数
     list_num = [1, 3, 6, 10, 15, 21, 25, 27, 27, 25, 21, 15, 10, 6, 3, 1]
     return_list = []
@@ -288,7 +340,7 @@ class Thread(QThread):
 
     def run(self):
         try:
-            do_16()
+            auto_data()
         except Exception as e:
             print('traceback.print_exc():', traceback.print_exc())
             print('traceback.format_exc():%s' % traceback.format_exc())
