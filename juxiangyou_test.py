@@ -54,11 +54,34 @@ class Thread(QThread):
 
     def run(self):
         try:
-            sql = "select * from pc16 order by period asc  LIMIT 10 "
+            sql = "select * from pc16 order by period desc  LIMIT 10 "
             result = self.sq16.fetch(sql)
             for x in result:
-                print(x[0],'期数,开奖结果为',x[3])
-            # print(result[10])
+
+                find_period = int(x[0]) - 1
+                find_period1 = int(x[0]) - 3
+                # print(find_period)
+                sql1 = "select * from pc16 where period <=" + str(find_period) + " and period>=" + str(
+                    find_period1) + "  order by period desc"
+                # print(sql1)
+                result1 = self.sq16.fetch(sql1)
+                expend_list = []
+                for z in result1:
+                    expend_list.append(z[3])
+                # print("上三期:", expend_list)
+                if int(expend_list[0]) > 7 and int(expend_list[0]) < 14:
+                    # print('上一起是中，可以考虑投注')
+                    print(x[0], '期数,开奖结果为', x[3])
+                    if (int(expend_list[0]) > 7 and int(expend_list[0]) < 14) and (
+                                    int(expend_list[1]) < 8 or int(expend_list[1]) > 13) and (
+                                    int(expend_list[2]) > 7 and int(expend_list[2]) < 14):
+                        # 说明上一期是中，那这期就要投注。
+                        print('出现了边中边情况,，当前期不投注')
+                    elif int(expend_list[0])>7 and int(expend_list[0])<14:
+                        #说明上一期是中，并且没有中边中的结构，判断是中单还是中双
+                        pass
+
+
         except Exception as e:
             print('traceback.print_exc():', traceback.print_exc())
             print('traceback.format_exc():%s' % traceback.format_exc())
