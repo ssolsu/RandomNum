@@ -166,21 +166,6 @@ def do_16():
             last_4 = soup.find('td', text=s4).find_next_sibling('td', attrs={'class': 'num'}).find('span').string
             expend_list = list(set([last_2, last_3, last_4]))
             print('上期期数:', s1, '开奖结果：', last_result, '多余列表', expend_list)
-        # for strx in tr_text[1:10]:
-        #     try:
-        #         list_text = strx.contents
-        #         print(list_text)
-        #         last_peroid = list_text[1].string
-        #         last_time = list_text[3].string
-        #         last_result = list_text[5].find('span').text
-        #         if last_result != '':
-        #             last_result = int(last_result)
-        #             print('上期期数:', last_peroid, '开奖时间：', last_time, '开奖结果：', last_result)
-        #         else:
-        #             last_result = 0
-        #     except Exception as e:
-        #         print('搜索数据错误，列表出错')
-        #         print('traceback.format_exc():%s' % traceback.format_exc())
         if vote_list:  # 如果不为空，说明上一次投注了，判断是否正确。
             if last_result in vote_list:
                 print('投注正确,倍率清空')
@@ -198,13 +183,19 @@ def do_16():
             # 复数
             if last_result % 2 == 0:
                 # 投注中单
-                print('上期结果是中双')
-                vote_list = vote_thing(current_period, last_result, 0, multiple[wrong], expend_list)
+                # print('上期结果是中双')
+                if (int(last_2) < 8 or int(last_2) > 13) or (int(last_3) < 8 or int(last_3) > 13):
+                    print('上第二期或上第三期为边，直接跳过')
+                else:
+                    vote_list = vote_thing(current_period, last_result, 0, multiple[wrong], expend_list)
 
             elif last_result % 2 == 1:
                 # 投注中双
-                print('上期结果是中单')
-                vote_list = vote_thing(current_period, last_result, 1, multiple[wrong], expend_list)
+                # print('上期结果是中单')
+                if (int(last_2) < 8 or int(last_2) > 13) or (int(last_3) < 8 or int(last_3) > 13):
+                    print('上第二期或上第三期为边，直接跳过')
+                else:
+                    vote_list = vote_thing(current_period, last_result, 0, multiple[wrong], expend_list)
 
         else:
             vote_list = []
@@ -267,7 +258,6 @@ def auto_data():
         except Exception as e:
             print(repr(e))
         time.sleep(0.5)
-
 
 
 def vote_thing(vote_current, last_result, sp_flag, multiple, expend_list):  # 负责投注的函数
