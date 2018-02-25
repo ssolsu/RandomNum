@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-import sys, time, os
+import sys, time, os, re
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import (QWidget, QLabel, QVBoxLayout, QLineEdit, QPushButton, QRadioButton, QHBoxLayout,
-                             QGridLayout,QSpinBox)
+                             QGridLayout, QSpinBox)
 from PyQt5.QtGui import QPixmap
 import requests, json, traceback, configparser
-from PyQt5.QtCore import QThread,Qt
+from PyQt5.QtCore import QThread, Qt
 from bs4 import BeautifulSoup
+import random
 
 requests.adapters.DEFAULT_RETRIES = 5
 requests.keep_alive = False
@@ -27,7 +28,7 @@ class Main_win(QWidget):
         # self.t1 = Thread()
 
     def initUI(self):
-        self.setWindowTitle('juxiangyou Window')
+        self.setWindowTitle('Le')
         self.setGeometry(100, 100, 600, 150)
         self.name = QLineEdit('xfpf@sina.com')
         self.password = QLineEdit('匿名')
@@ -104,9 +105,10 @@ class Main_win(QWidget):
         self.vali_lable = QLabel('验证码：')
         self.vali_input = QLineEdit()
         self.sub_button = QPushButton('登     录')
+        self.sub_button.clicked.connect(self.submit_site)
         # 为左边网格布局添加图片等部件
         self.glayout.setSpacing(5)
-        self.glayout.addWidget(self.logo_lable, 1, 0, 1, 0,Qt.AlignCenter)
+        self.glayout.addWidget(self.logo_lable, 1, 0, 1, 0, Qt.AlignCenter)
         self.glayout.addWidget(self.name_label, 2, 0)
         self.glayout.addWidget(self.name_input, 2, 1)
         self.glayout.addWidget(self.password_lable, 3, 0)
@@ -116,7 +118,7 @@ class Main_win(QWidget):
         self.glayout.addWidget(self.sub_button, 5, 0, 1, 0)
 
         # 为右边的布局添加一个label来填充页面
-        self.rightlable=QLabel('-----------------------------右布局预留空位---------------------')
+        self.rightlable = QLabel('-----------------------------右布局预留空位---------------------')
         self.vlayout.addWidget(self.rightlable)
         # 准备2个部件
         vwg = QWidget()
@@ -129,7 +131,6 @@ class Main_win(QWidget):
         self.all_layout.addWidget(gwg)  # 2个部件加至全局布局
         self.all_layout.addWidget(vwg)
         self.setLayout(self.all_layout)
-
 
     def change_vote_mode(self):
         global vote_mode
@@ -148,49 +149,37 @@ class Main_win(QWidget):
 
     def submit_site(self):
         global gol_cookies
-        flag = False
-        base_time = int(time.time()) * 1000
-        x_sign = baseN(base_time, 36)
         post_head = {"Accept": "application/json, text/javascript, */*; q=0.01",
                      "Accept-Encoding": "gzip, deflate",
                      "Accept-Language": "zh-cn",
                      "Cache-Control": "no-cache",
                      "Connection": "Keep-Alive",
                      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                     "Host": "www.juxiangyou.com",
-                     "Referer": "http://www.juxiangyou.com/login/index",
+                     "Host": "www.lezhuan.com",
+                     "Referer": "http://www.lezhuan.com/login.html",
                      "User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)",
                      "X-Requested-With": "XMLHttpRequest"}
         try:
-            # 为header字典添加一个X-sign标识，毫秒级时间戳36进制
-            post_head['X-Sign'] = x_sign
-            # 服务器接受str格式，把字典格式json格式转化
-            a = json.dumps({"c": "index", "fun": "login", "account": self.name.text().strip(),
-                            "password": 'xfcctv1983',
-                            "verificat_code": self.vali.text().strip(),
-                            "is_auto": 'false'})
-            # 毫秒级时间戳，同时作为postdata数据发现服务器
-            pst_data = {'jxy_parameter': a, 'timestamp': base_time}
-            url = 'http://www.juxiangyou.com/login/auth'
-            # Post数据服务器，cookies使用登录页面与验证码 合并cookies提交
-            req = requests.post(url, data=pst_data, cookies=self.reqcookies, headers=post_head,
-                                allow_redirects=False)
-            if req.text.find('10000') > 0:
-                print('登录成功，等待3秒，开始循环查询网页')
-                # 登录成功，设定全局访问cookies
-                gol_cookies = req.cookies
-                flag = True
-                # time.sleep(3)
-                self.t1.start()
-            elif req.text.find('10003') > 0:
-                print('验证码或者密码错误')
-            elif req.text.find('10005') > 0:
-                print('密码输入错误，只有5次机会哦')
+            # 产生一个0-1的随机数字 17位
+            rankey = random.random()
+            # 直接发送请求ajax 获得token
+            pst_ajax = {'act': 'visitReg', 'key': rankey, 'url': 'http://www.lezhuan.com/'}
+            url = 'http://www.lezhuan.com/ajax.php'
+            # Post数据服务器
+            req = requests.post(url, data=pst_ajax, headers=post_head, allow_redirects=False)
+            sub_ajax = {'act': 'login', 'key': rankey, 'url': 'http://www.lezhuan.com/',
+                        'tbUserAccount': 'xfpf@sina.com', 'tbUserPwd': 'xfcctv1983',
+                        'token': json.loads(req.text)['token']}
+            time.sleep(0.1)
+            req1 = requests.post(url, data=sub_ajax, headers=post_head, cookies=req.cookies, allow_redirects=False)
+            if json.loads(req1.text)['error'] == '10000':
+                print('登录成功')
+                gol_cookies = req1.cookies
+                return True
             else:
-                print('莫名错误！！')
+                return False
         except Exception as e:
             print(repr(e))
-        return flag
 
 
 # 36进制转换公式方法
@@ -202,54 +191,51 @@ def baseN(num, b):
 def do_16():
     # 初始化判断是否错误,错误的次数
     # 初始化投注倍数
-    jb = [1, 2, 4, 8]
+    jb = [3, 5, 8, 12]
     xxx = 1
     # 初始化投注期数
     global firstflag_vote
     global firstflag_jinbi
     wrong = 1
     vote_list = []
-    header = {
-        "Accept": "text/html, application/xhtml+xml, */*",
-        "Accept-Encoding": "gzip, deflate",
-        "Accept-Language": "zh-CN",
-        "Connection": "Keep-Alive",
-        "Host": "www.juxiangyou.com",
-        "Referer": "http://www.juxiangyou.com/",
-        "User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64;Trident/5.0)"
-    }
+    header = {"Accept": "application/json, text/javascript, */*; q=0.01",
+              "Accept-Encoding": "gzip, deflate",
+              "Accept-Language": "zh-cn",
+              "Cache-Control": "no-cache",
+              "Connection": "Keep-Alive",
+              "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+              "Host": "www.lezhuan.com",
+              "Referer": "http://www.lezhuan.com/login.html",
+              "User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)",
+              "X-Requested-With": "XMLHttpRequest"}
     while True:
         vote_retime = 0
         current_period = ''
         list_v = []
-        url = 'http://www.juxiangyou.com/fun/play/speed16/index'
+        url = 'http://www.lezhuan.com/fun/'
         try:
             req = requests.get(url, cookies=gol_cookies, headers=header)
             soup = BeautifulSoup(req.text, 'lxml')
             # 查询当前投注信息
-            vote_info = soup.find('label', attrs={'class': 'J_jcEnd'})
+            vote_info = soup.findall('script', attrs={'type': 'text/javascript'})
             # 第一步 找到当前期 这里必然找出当前期，目的是为了投注。
             if vote_info != None:
-                if (vote_info.text).find('正在开奖') > 0:
-                    print('正在开奖，等待5秒')
-                    time.sleep(5)
-                else:
+                try:
+                    temp_a = re.findall(r"parseInt\(\"(.+?)\"\)", vote_info[2].text)
+                    temp_b = re.findall(r"fTimingNO = \"(.+?)\";", vote_info[2].text)
+                    vote_current = int(temp_b[0])
+                    vote_retime = int(temp_a[0])
+                    if vote_retime > 9:
+                        print('当前期' + vote_current + '剩余' + str(vote_retime) + '秒投注')
+                    else:
+                        print(vote_current,'截止投注')
+                except Exception as e:
+                    print('搜索资料出错，列表错误')
+                    print('traceback.format_exc():%s' % traceback.format_exc())
+
+
                     # 如果没有开奖，则查询当前投注期
-                    try:
-                        vote_current = vote_info.find_all('span')
-                        # 结束标识，查询
-                        end_flag = (vote_info.text).find('截止投注')
-                        if end_flag > 0:
-                            # 即使投注了，当前期也需要展示出来，为投注判断
-                            print(vote_current[0].string + '期已经截止投注')
-                            current_period = vote_current[0].string
-                        else:
-                            print('当前期' + vote_current[0].string + '剩余' + vote_current[1].string + '秒投注')
-                            vote_retime = int(vote_current[1].string)
-                            current_period = vote_current[0].string
-                    except Exception as e:
-                        print('搜索资料出错，列表错误')
-                        print('traceback.format_exc():%s' % traceback.format_exc())
+
             # 找到当前期后，那么我们需要找到前4期，为投注准备,計算投注期，不需要時間也需要體現。
 
             if current_period != '':
