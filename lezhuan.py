@@ -11,7 +11,7 @@ import random
 
 requests.adapters.DEFAULT_RETRIES = 5
 requests.keep_alive = False
-vote_mode = 0  # 0中边模式，1大小模式
+vote_mode = 1  # 0中边模式，1大小模式
 maxwrong = 0
 multiple = []
 firstflag_vote = ''
@@ -25,7 +25,7 @@ class Main_win(QWidget):
         super(Main_win, self).__init__()
         # self.initUI()
         self.UI()
-        # self.t1 = Thread()
+        self.t1 = Thread()
 
     def initUI(self):
         self.setWindowTitle('Le')
@@ -85,7 +85,7 @@ class Main_win(QWidget):
         global maxwrong
         maxwrong = 8
         global multiple
-        multiple = [0, 1, 3, 7, 15, 31, 63, 127, 255, 1, 1, 1, 1, 1]
+        multiple = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 1, 1]
 
     def UI(self):
         self.setWindowTitle('LeZhuan')
@@ -104,6 +104,10 @@ class Main_win(QWidget):
         self.password_input = QLineEdit('匿名')
         self.vali_lable = QLabel('验证码：')
         self.vali_input = QLineEdit()
+        self.rb = QRadioButton('中边模式')
+        self.rb1 = QRadioButton('大小模式')
+        self.rb.toggled.connect(self.change_vote_mode)
+        self.rb.toggled.connect(self.change_vote_mode)
         self.sub_button = QPushButton('登     录')
         self.sub_button.clicked.connect(self.submit_site)
         # 为左边网格布局添加图片等部件
@@ -115,7 +119,9 @@ class Main_win(QWidget):
         self.glayout.addWidget(self.password_input, 3, 1)
         self.glayout.addWidget(self.vali_lable, 4, 0)
         self.glayout.addWidget(self.vali_input, 4, 1)
-        self.glayout.addWidget(self.sub_button, 5, 0, 1, 0)
+        self.glayout.addWidget(self.rb, 5, 0)
+        self.glayout.addWidget(self.rb1, 5, 1)
+        self.glayout.addWidget(self.sub_button, 6, 0, 1, 0)
 
         # 为右边的布局添加一个label来填充页面
         self.rightlable = QLabel('-----------------------------右布局预留空位---------------------')
@@ -149,12 +155,12 @@ class Main_win(QWidget):
 
     def submit_site(self):
         global gol_cookies
-        post_head = {"Accept": "application/json, text/javascript, */*; q=0.01",
+        post_head = {"Accept": "application/json, text/javascript, */*",
                      "Accept-Encoding": "gzip, deflate",
                      "Accept-Language": "zh-cn",
                      "Cache-Control": "no-cache",
                      "Connection": "Keep-Alive",
-                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                     "Content-Type": "application/x-www-form-urlencoded",
                      "Host": "www.lezhuan.com",
                      "Referer": "http://www.lezhuan.com/login.html",
                      "User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)",
@@ -175,6 +181,7 @@ class Main_win(QWidget):
             if json.loads(req1.text)['error'] == '10000':
                 print('登录成功')
                 gol_cookies = req1.cookies
+                self.t1.start()
                 return True
             else:
                 return False
@@ -198,14 +205,14 @@ def do_16():
     global firstflag_jinbi
     wrong = 1
     vote_list = []
-    header = {"Accept": "application/json, text/javascript, */*; q=0.01",
+    header = {"Accept": "application/json, text/javascript, */*",
               "Accept-Encoding": "gzip, deflate",
               "Accept-Language": "zh-cn",
               "Cache-Control": "no-cache",
               "Connection": "Keep-Alive",
-              "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+              "Content-Type": "application/x-www-form-urlencoded",
               "Host": "www.lezhuan.com",
-              "Referer": "http://www.lezhuan.com/login.html",
+              "Referer": "http://www.lezhuan.com/",
               "User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)",
               "X-Requested-With": "XMLHttpRequest"}
     while True:
@@ -217,44 +224,43 @@ def do_16():
             req = requests.get(url, cookies=gol_cookies, headers=header)
             soup = BeautifulSoup(req.text, 'lxml')
             # 查询当前投注信息
-            vote_info = soup.findall('script', attrs={'type': 'text/javascript'})
+            vote_info = soup.find_all('script', attrs={'type': 'text/javascript'})
             # 第一步 找到当前期 这里必然找出当前期，目的是为了投注。
             if vote_info != None:
                 try:
                     temp_a = re.findall(r"parseInt\(\"(.+?)\"\)", vote_info[2].text)
                     temp_b = re.findall(r"fTimingNO = \"(.+?)\";", vote_info[2].text)
-                    vote_current = int(temp_b[0])
+                    current_period = temp_b[0]
                     vote_retime = int(temp_a[0])
                     if vote_retime > 9:
-                        print('当前期' + vote_current + '剩余' + str(vote_retime) + '秒投注')
+                        print('当前期' + current_period + '剩余' + str(vote_retime) + '秒投注')
                     else:
-                        print(vote_current,'截止投注')
+                        print(current_period, '截止投注')
                 except Exception as e:
                     print('搜索资料出错，列表错误')
                     print('traceback.format_exc():%s' % traceback.format_exc())
-
-
                     # 如果没有开奖，则查询当前投注期
-
             # 找到当前期后，那么我们需要找到前4期，为投注准备,計算投注期，不需要時間也需要體現。
-
             if current_period != '':
                 try:
-                    current_jinbi = (soup.find('span', attrs={'class': 'J_udou'}).string).replace(',', '')
+                    current_jinbi = (
+                        soup.find('span', attrs={'style': 'padding-left:10px;'}).find_next_sibling(
+                            'span').string).replace(
+                        ',', '')
                 except Exception as e:
                     print(repr(e))
                 if firstflag_vote == '':
                     firstflag_vote = current_period
                     firstflag_jinbi = current_jinbi
                     config = configparser.ConfigParser()
-                    config.read("Config.ini")
+                    config.read("Config_lezhuan.ini")
                     config_title = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
                     try:
                         config.add_section(config_title)
                         config.set(config_title, "starttime：", config_title)
                         config.set(config_title, "firstvote：", firstflag_vote)
                         config.set(config_title, "firstjinbi", firstflag_jinbi)
-                        config.write(open("Config.ini", "w"))
+                        config.write(open("Config_lezhuan.ini", "w"))
                         tempa = config.sections()
                         newa = []
                         findtime = time.strftime('%Y-%m-%d', time.localtime(time.time()))
@@ -268,22 +274,25 @@ def do_16():
                     except configparser.DuplicateSectionError:
                         print("Section already exists")
                 if vote_list:  # 如果不为空，说明上一次投注了，判断是否正确。
-                    vote_period = vote_list[-1]
-                    last_vote = soup.find('td', text=vote_period).find_next_sibling('td', attrs={'class': 'num'}).find(
-                        'span').string
-                    print('返回列表', vote_list, '查找返回投注期的结果', last_vote)
-                    if int(last_vote) in vote_list:
-                        print('投注正确,倍率清空')
-                        wrong = 1
-                    else:
-                        print('投注错误,次数加 1 ,错误次数：', wrong)
-                        wrong = wrong + 1
-                        if wrong >= maxwrong:
+                    try:
+                        vote_period = vote_list[-1]
+                        temp1 = (soup.find('td', text=vote_period).find_next_siblings('td')[1].find_all('img'))[-1]
+                        last_vote = re.findall(r'\d+', str(temp1))
+                        print('返回列表', vote_list, '查找返回投注期的结果', last_vote)
+                        if int(last_vote) in vote_list:
+                            print('投注正确,倍率清空')
                             wrong = 1
-                            xxx = xxx + 1
-                            # 最大只能45倍
-                            if xxx >= 3:
-                                xxx = 3
+                        else:
+                            if int(last_vote) > 0:
+                                print('投注错误,次数加 1 ,错误次数：', wrong)
+                                wrong = wrong + 1
+                                if wrong >= maxwrong:
+                                    wrong = 1
+                                    xxx = xxx + 1
+                                    if xxx >= 3:
+                                        xxx = 3
+                    except Exception as e:
+                        print(repr(e))
                 # 今日收益 等于 当前金币减掉今天第一次记录的金币数量
                 temp = int(current_jinbi) - todayfirstjinbi
                 yjshouru = jb[1] * 73 * 200
@@ -295,15 +304,20 @@ def do_16():
                 s2 = str(int(current_period) - 2)
                 s3 = str(int(current_period) - 3)
                 s4 = str(int(current_period) - 4)
-                last_1 = soup.find('td', text=s1).find_next_sibling('td', attrs={'class': 'num'}).find('span').string
-                last_2 = soup.find('td', text=s2).find_next_sibling('td', attrs={'class': 'num'}).find('span').string
-                last_3 = soup.find('td', text=s3).find_next_sibling('td', attrs={'class': 'num'}).find('span').string
-                last_4 = soup.find('td', text=s4).find_next_sibling('td', attrs={'class': 'num'}).find('span').string
+                temp_w = (soup.find('td', text=s1).find_next_siblings('td')[1].find_all('img'))[-1]
+                last_1 = re.findall(r'\d+', str(temp_w))
+                temp_x = (soup.find('td', text=s2).find_next_siblings('td')[1].find_all('img'))[-1]
+                last_2 = re.findall(r'\d+', str(temp_x))
+                temp_y = (soup.find('td', text=s3).find_next_siblings('td')[1].find_all('img'))[-1]
+                last_3 = re.findall(r'\d+', str(temp_y))
+                temp_z = (soup.find('td', text=s4).find_next_siblings('td')[1].find_all('img'))[-1]
+                last_4 = re.findall(r'\d+', str(temp_z))
                 temp_list = []
                 for zz in range(1, 19):
                     temp1 = str(int(current_period) - zz)
-                    z1 = soup.find('td', text=temp1).find_next_sibling('td', attrs={'class': 'num'}).find('span').string
-                    temp_list.append(z1)
+                    z1 = (soup.find('td', text=temp1).find_next_siblings('td')[1].find_all('img'))[-1]
+                    z2 = re.findall(r'\d+', str(z1))
+                    temp_list.append(z2)
                 if vote_mode == 0 and vote_retime > 9:
                     print('中边模式，最大错误次数:', maxwrong)
                     list_v = zhongandbian(last_1, last_2, multiple[wrong])
@@ -534,35 +548,35 @@ def zhongandbian(s1, s2, multiple):
 
 
 def vote_thing(vote_current, list_v):  # 负责投注的函数
-    fpath = os.getcwd()
     return_list = []
     list_num = [1, 3, 6, 10, 15, 21, 25, 27, 27, 25, 21, 15, 10, 6, 3, 1]
-    base_time = int(time.time()) * 1000
-    x_sign = baseN(base_time, 36)
-    post_head = {"Accept": "application/json, text/javascript, */*; q=0.01",
+    post_head = {"Accept": "text/html, application/xhtml+xml, */*",
                  "Accept-Encoding": "gzip, deflate",
                  "Accept-Language": "zh-cn",
                  "Cache-Control": "no-cache",
                  "Connection": "Keep-Alive",
-                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                 "Host": "www.juxiangyou.com",
-                 "Referer": "http://www.juxiangyou.com/fun/play/speed16/jctz?id=" + vote_current,
+                 "Content-Type": "application/x-www-form-urlencoded",
+                 "Host": "www.lezhuan.com",
+                 "Referer": "http://www.lezhuan.com/fun/insert.php?funNO=" + vote_current,
                  "User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)",
                  "X-Requested-With": "XMLHttpRequest"}
-    post_head['X-Sign'] = x_sign
     # 服务器接受str格式，把字典格式json格式转化
-    a = json.dumps({"fun": "lottery", "c": "quiz", "items": "speed16", "lssue": vote_current,
-                    "lotteryData": list_v})
+    a = {}
+    for index, bb in enumerate(list_v):
+        if bb > 0:
+            a['tbChk[' + str((index + 3)) + ']'] = 'on'
+    for index, bb in enumerate(list_v):
+        a['tbNum[' + str((index + 3)) + ']'] = bb
+    c = json.dumps(a)
     # 毫秒级时间戳，同时作为postdata数据发现服务器
-    pst_data = {'jxy_parameter': a, 'timestamp': base_time}
-    url = 'http://www.juxiangyou.com/fun/play/interaction'
+    url = 'http://www.lezhuan.com/fun/insert.php?funNO=' + vote_current
     # Post数据服务器，cookies使用登录页面与验证码 合并cookies提交
     try:
-        req = requests.post(url, data=pst_data, cookies=gol_cookies, headers=post_head,
+        req = requests.post(url, data=c, cookies=gol_cookies, headers=post_head,
                             allow_redirects=False, timeout=10)
-        # print('打印投注返回信息:', req.text)
-        vote_status = (json.loads(req.text))['code']
-        if vote_status == 10000:
+        print('打印投注返回信息:', req.text)
+
+        if req.text.find('投注成功') > 0:
             # f = open(fpath + '\\a.txt', 'a+')
             # f.write(vote_current.strip() + " 列表：" + str(list_v) + "\n")
             # f.close()
