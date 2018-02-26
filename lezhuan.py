@@ -181,6 +181,10 @@ class Main_win(QWidget):
             if json.loads(req1.text)['error'] == '10000':
                 print('登录成功')
                 gol_cookies = req1.cookies
+                cj_dict = requests.utils.dict_from_cookiejar(gol_cookies)
+                cj_dict['cGlobal[last]'] = str(int(time.time()))
+                gol_cookies = requests.utils.cookiejar_from_dict(cj_dict, cookiejar=None, overwrite=True)
+                print(gol_cookies)
                 self.t1.start()
                 return True
             else:
@@ -221,7 +225,10 @@ def do_16():
         list_v = []
         url = 'http://www.lezhuan.com/fun/'
         try:
+            gol_cookies['cGlobal[last]'] = str(int(time.time()))
+
             req = requests.get(url, cookies=gol_cookies, headers=header)
+            # print('查询页面时使用的全局cookies', gol_cookies)
             soup = BeautifulSoup(req.text, 'lxml')
             # 查询当前投注信息
             vote_info = soup.find_all('script', attrs={'type': 'text/javascript'})
@@ -549,7 +556,6 @@ def zhongandbian(s1, s2, multiple):
 
 
 def vote_thing(vote_current, list_v):  # 负责投注的函数
-
     return_list = []
     list_num = [1, 3, 6, 10, 15, 21, 25, 27, 27, 25, 21, 15, 10, 6, 3, 1]
     post_head = {"Accept": "text/html, application/xhtml+xml, */*",
@@ -568,10 +574,10 @@ def vote_thing(vote_current, list_v):  # 负责投注的函数
         if bb > 0:
             a['tbChk[' + str((index + 3)) + ']'] = 'on'
     for index, bb in enumerate(list_v):
-        if bb>0:
+        if bb > 0:
             a['tbNum[' + str((index + 3)) + ']'] = bb
         else:
-            a['tbNum[' + str((index + 3)) + ']']=''
+            a['tbNum[' + str((index + 3)) + ']'] = ''
     # c = json.dumps(a)
     # 毫秒级时间戳，同时作为postdata数据发现服务器
     # print(a)
@@ -579,10 +585,10 @@ def vote_thing(vote_current, list_v):  # 负责投注的函数
     url = 'http://www.lezhuan.com/fun/insert.php?funNO=' + vote_current
     # Post数据服务器，cookies使用登录页面与验证码 合并cookies提交
     try:
+        gol_cookies['cGlobal[last]'] = str(int(time.time()))
         req = requests.post(url, data=a, cookies=gol_cookies, headers=post_head,
                             allow_redirects=False, timeout=10)
-        global gol_cookies
-        gol_cookies=req.cookies
+        print('投注模块中，使用的全局cookies', gol_cookies)
         # print('打印投注返回信息:', req.content)
         if req.text.find('投注成功') > 0:
             # f = open(fpath + '\\a.txt', 'a+')
