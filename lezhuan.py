@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 import random
 
 requests.adapters.DEFAULT_RETRIES = 5
-requests.keep_alive = False
+requests.keep_alive = True
 vote_mode = 1  # 0中边模式，1大小模式
 maxwrong = 0
 multiple = []
@@ -107,7 +107,7 @@ class Main_win(QWidget):
         self.rb = QRadioButton('中边模式')
         self.rb1 = QRadioButton('大小模式')
         self.rb.toggled.connect(self.change_vote_mode)
-        self.rb.toggled.connect(self.change_vote_mode)
+        self.rb1.toggled.connect(self.change_vote_mode)
         self.sub_button = QPushButton('登     录')
         self.sub_button.clicked.connect(self.submit_site)
         # 为左边网格布局添加图片等部件
@@ -146,12 +146,12 @@ class Main_win(QWidget):
             vote_mode = 0
             maxwrong = 8
             multiple = [0, 1, 3, 7, 15, 31, 63, 127, 255, 1, 1, 1, 1, 1]
-            self.label1.setText('投注模式为：' + str(vote_mode))
+            # self.label1.setText('投注模式为：' + str(vote_mode))
         elif self.rb1.isChecked():
             vote_mode = 1
             maxwrong = 11
             multiple = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 1, 1]
-            self.label1.setText('投注模式为：' + str(vote_mode))
+            # self.label1.setText('投注模式为：' + str(vote_mode))
 
     def submit_site(self):
         global gol_cookies
@@ -278,12 +278,12 @@ def do_16():
                         vote_period = vote_list[-1]
                         temp1 = (soup.find('td', text=vote_period).find_next_siblings('td')[1].find_all('img'))[-1]
                         last_vote = re.findall(r'\d+', str(temp1))
-                        print('返回列表', vote_list, '查找返回投注期的结果', last_vote)
-                        if int(last_vote) in vote_list:
+                        print('返回列表', vote_list, '查找返回投注期的结果', last_vote[0])
+                        if int(last_vote[0]) in vote_list:
                             print('投注正确,倍率清空')
                             wrong = 1
                         else:
-                            if int(last_vote) > 0:
+                            if int(last_vote[0]) > 0:
                                 print('投注错误,次数加 1 ,错误次数：', wrong)
                                 wrong = wrong + 1
                                 if wrong >= maxwrong:
@@ -305,18 +305,18 @@ def do_16():
                 s3 = str(int(current_period) - 3)
                 s4 = str(int(current_period) - 4)
                 temp_w = (soup.find('td', text=s1).find_next_siblings('td')[1].find_all('img'))[-1]
-                last_1 = re.findall(r'\d+', str(temp_w))
+                last_1 = re.findall(r'\d+', str(temp_w))[0]
                 temp_x = (soup.find('td', text=s2).find_next_siblings('td')[1].find_all('img'))[-1]
-                last_2 = re.findall(r'\d+', str(temp_x))
+                last_2 = re.findall(r'\d+', str(temp_x))[0]
                 temp_y = (soup.find('td', text=s3).find_next_siblings('td')[1].find_all('img'))[-1]
-                last_3 = re.findall(r'\d+', str(temp_y))
+                last_3 = re.findall(r'\d+', str(temp_y))[0]
                 temp_z = (soup.find('td', text=s4).find_next_siblings('td')[1].find_all('img'))[-1]
-                last_4 = re.findall(r'\d+', str(temp_z))
+                last_4 = re.findall(r'\d+', str(temp_z))[0]
                 temp_list = []
                 for zz in range(1, 19):
                     temp1 = str(int(current_period) - zz)
                     z1 = (soup.find('td', text=temp1).find_next_siblings('td')[1].find_all('img'))[-1]
-                    z2 = re.findall(r'\d+', str(z1))
+                    z2 = re.findall(r'\d+', str(z1))[0]
                     temp_list.append(z2)
                 if vote_mode == 0 and vote_retime > 9:
                     print('中边模式，最大错误次数:', maxwrong)
@@ -325,6 +325,7 @@ def do_16():
                     print('大小,最大错:', maxwrong, "当金币：", current_jinbi, '今收益', temp, '基倍', xxx, '预收',
                           str(yjshouru / 10000) + '万')
                     list_v = bigandmail(last_1, last_2, last_3, last_4, multiple[wrong], jb[xxx], temp_list)
+                    # print(last_1, last_2, last_3, last_4, multiple[wrong], jb[xxx], temp_list)
                 if list_v:
                     vote_list = vote_thing(current_period, list_v)
                 else:
@@ -548,6 +549,7 @@ def zhongandbian(s1, s2, multiple):
 
 
 def vote_thing(vote_current, list_v):  # 负责投注的函数
+
     return_list = []
     list_num = [1, 3, 6, 10, 15, 21, 25, 27, 27, 25, 21, 15, 10, 6, 3, 1]
     post_head = {"Accept": "text/html, application/xhtml+xml, */*",
@@ -566,16 +568,22 @@ def vote_thing(vote_current, list_v):  # 负责投注的函数
         if bb > 0:
             a['tbChk[' + str((index + 3)) + ']'] = 'on'
     for index, bb in enumerate(list_v):
-        a['tbNum[' + str((index + 3)) + ']'] = bb
-    c = json.dumps(a)
+        if bb>0:
+            a['tbNum[' + str((index + 3)) + ']'] = bb
+        else:
+            a['tbNum[' + str((index + 3)) + ']']=''
+    # c = json.dumps(a)
     # 毫秒级时间戳，同时作为postdata数据发现服务器
+    # print(a)
+    # print(gol_cookies)
     url = 'http://www.lezhuan.com/fun/insert.php?funNO=' + vote_current
     # Post数据服务器，cookies使用登录页面与验证码 合并cookies提交
     try:
-        req = requests.post(url, data=c, cookies=gol_cookies, headers=post_head,
+        req = requests.post(url, data=a, cookies=gol_cookies, headers=post_head,
                             allow_redirects=False, timeout=10)
-        print('打印投注返回信息:', req.text)
-
+        global gol_cookies
+        gol_cookies=req.cookies
+        # print('打印投注返回信息:', req.content)
         if req.text.find('投注成功') > 0:
             # f = open(fpath + '\\a.txt', 'a+')
             # f.write(vote_current.strip() + " 列表：" + str(list_v) + "\n")
