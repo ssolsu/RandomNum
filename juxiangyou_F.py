@@ -16,12 +16,12 @@ firstflag_vote = ''
 firstflag_time = ''
 firstflag_jinbi = ''
 todayfirstjinbi = 0
+moni = 1
 
 
 class Main_win(QWidget):
     def __init__(self):
         super(Main_win, self).__init__()
-
         self.initUI()
         self.t1 = Thread()
 
@@ -160,6 +160,7 @@ def do_16():
     # 初始化投注期数
     global firstflag_vote
     global firstflag_jinbi
+    global moni
     wrong = 1
     vote_list = []
     header = {
@@ -248,6 +249,7 @@ def do_16():
                         if wrong >= maxwrong:
                             wrong = 1
                             xxx = xxx + 1
+                            moni = 0
                             # 最大只能45倍
                             if xxx >= 3:
                                 xxx = 3
@@ -291,72 +293,6 @@ def do_16():
         except Exception as e:
             print('访问网站出错，等待10秒，重新访问', repr(e))
             time.sleep(5)
-
-
-# def bigandmail(s1, s2, s3, s4, multiple, bt):
-#     # 该方法返回需要购买的列表
-#     s1 = int(s1)
-#     s2 = int(s2)
-#     s3 = int(s3)
-#     s4 = int(s4)
-#     list_num = [1, 3, 6, 10, 15, 21, 25, 27, 27, 25, 21, 15, 10, 6, 3, 1]
-#     if s1 > 7 and s1 < 14 and s1 < 11:  # 当前期为中小
-#         # 判断假如不是中边中的情况，则直接跟中小
-#         if (s2 < 8 or s2 > 13) and (s3 > 7 and s3 < 14):
-#             # 中边中结构，跳过投注
-#             print('中边中结构，跳过')
-#             return []
-#         elif s2 > 10 and s3 < 11:
-#             for i in range(0, 8):
-#                 list_num[i] = 0
-#             list_num[8] = list_num[8] * bt * multiple
-#             list_num[9] = list_num[9] * bt * multiple
-#             list_num[10] = list_num[10] * bt * multiple
-#             for i in range(11, 16):
-#                 list_num[i] = 0
-#             print('反转中大模式', list_num, '投注倍率:', multiple)
-#             return list_num
-#         else:
-#             for i in range(0, 5):
-#                 list_num[i] = 0
-#             list_num[5] = list_num[5] * bt * multiple
-#             list_num[6] = list_num[6] * bt * multiple
-#             list_num[7] = list_num[7] * bt * multiple
-#             for i in range(8, 16):
-#                 list_num[i] = 0
-#             print('投注中小模式,', list_num, '投注倍率:', multiple)
-#             return list_num
-#     elif s1 > 7 and s1 < 14 and s1 > 10:  # 当前期为中大
-#         if (s2 < 8 or s2 > 13) and (s3 > 7 and s3 < 14):
-#             # 中边中结构，跳过投注
-#             print('中边中结构，跳过')
-#             return []
-#         elif s2 < 11 and s3 > 10:
-#             # 符合大小大的结构，跳过投注
-#             for i in range(0, 5):
-#                 list_num[i] = 0
-#             list_num[5] = list_num[5] * bt * multiple
-#             list_num[6] = list_num[6] * bt * multiple
-#             list_num[7] = list_num[7] * bt * multiple
-#             for i in range(8, 16):
-#                 list_num[i] = 0
-#             # 那应该可以跟投中小
-#             print('反转中小模式', list_num, '投注倍率:', multiple)
-#             return list_num
-#         else:
-#             for i in range(0, 8):
-#                 list_num[i] = 0
-#             list_num[8] = list_num[8] * bt * multiple
-#             list_num[9] = list_num[9] * bt * multiple
-#             list_num[10] = list_num[10] * bt * multiple
-#             for i in range(11, 16):
-#                 list_num[i] = 0
-#             # 那应该可以跟投中小
-#             print('投注中大模式,投注倍率:', multiple)
-#             return list_num
-#     else:
-#         print('不符合中大小模式')
-#         return []
 
 
 def bigandmail(s1, s2, s3, s4, multiple, bt, temp_list):
@@ -524,27 +460,35 @@ def vote_thing(vote_current, list_v):  # 负责投注的函数
     pst_data = {'jxy_parameter': a, 'timestamp': base_time}
     url = 'http://www.juxiangyou.com/fun/play/interaction'
     # Post数据服务器，cookies使用登录页面与验证码 合并cookies提交
-    try:
-        req = requests.post(url, data=pst_data, cookies=gol_cookies, headers=post_head,
-                            allow_redirects=False, timeout=10)
-        # print('打印投注返回信息:', req.text)
-        vote_status = (json.loads(req.text))['code']
-        if vote_status == 10000:
-            # f = open(fpath + '\\a.txt', 'a+')
-            # f.write(vote_current.strip() + " 列表：" + str(list_v) + "\n")
-            # f.close()
-            for x in range(0, 16):
-                if list_v[x] > list_num[x]:
-                    return_list.append(x + 3)
-            return_list.append(vote_current.strip())
-            print(vote_current, '投注成功购买的列表是', return_list)
-            return return_list
-        else:
-            print(vote_current, '投注失败，购买的列表是空')
+    if moni == 0:
+        try:
+            req = requests.post(url, data=pst_data, cookies=gol_cookies, headers=post_head,
+                                allow_redirects=False, timeout=10)
+            # print('打印投注返回信息:', req.text)
+            vote_status = (json.loads(req.text))['code']
+            if vote_status == 10000:
+                # f = open(fpath + '\\a.txt', 'a+')
+                # f.write(vote_current.strip() + " 列表：" + str(list_v) + "\n")
+                # f.close()
+                for x in range(0, 16):
+                    if list_v[x] > list_num[x]:
+                        return_list.append(x + 3)
+                return_list.append(vote_current.strip())
+                print(vote_current, '真实，投注成功购买的列表是', return_list)
+                return return_list
+            else:
+                print(vote_current, '投注失败，购买的列表是空')
+                return []
+        except Exception as e:
+            print('出错，购买的列表是空')
             return []
-    except Exception as e:
-        print('出错，购买的列表是空')
-        return []
+    else:
+        for x in range(0, 16):
+            if list_v[x] > list_num[x]:
+                return_list.append(x + 3)
+        return_list.append(vote_current.strip())
+        print(vote_current, '模拟投注，购买的列表是', return_list)
+        return return_list
 
 
 class Thread(QThread):

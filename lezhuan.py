@@ -106,8 +106,10 @@ class Main_win(QWidget):
         self.vali_input = QLineEdit()
         self.rb = QRadioButton('中边模式')
         self.rb1 = QRadioButton('大小模式')
+        self.rb2 = QRadioButton('余数模式')
         self.rb.toggled.connect(self.change_vote_mode)
         self.rb1.toggled.connect(self.change_vote_mode)
+        self.rb2.toggled.connect(self.change_vote_mode)
         self.sub_button = QPushButton('登     录')
         self.sub_button.clicked.connect(self.submit_site)
         # 为左边网格布局添加图片等部件
@@ -121,6 +123,7 @@ class Main_win(QWidget):
         self.glayout.addWidget(self.vali_input, 4, 1)
         self.glayout.addWidget(self.rb, 5, 0)
         self.glayout.addWidget(self.rb1, 5, 1)
+        self.glayout.addWidget(self.rb2, 5, 2)
         self.glayout.addWidget(self.sub_button, 6, 0, 1, 0)
 
         # 为右边的布局添加一个label来填充页面
@@ -152,6 +155,10 @@ class Main_win(QWidget):
             maxwrong = 11
             multiple = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 1, 1]
             # self.label1.setText('投注模式为：' + str(vote_mode))
+        elif self.rb2.isChecked():
+            vote_mode = 2
+            maxwrong = 11
+            multiple = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 1, 1]
 
     def submit_site(self):
         global gol_cookies
@@ -202,7 +209,7 @@ def baseN(num, b):
 def do_16():
     # 初始化判断是否错误,错误的次数
     # 初始化投注倍数
-    jb = [3, 5, 8, 12]
+    jb = [1, 2, 4, 8]
     xxx = 1
     # 初始化投注期数
     global firstflag_vote
@@ -333,6 +340,10 @@ def do_16():
                           str(yjshouru / 10000) + '万')
                     list_v = bigandmail(last_1, last_2, last_3, last_4, multiple[wrong], jb[xxx], temp_list)
                     # print(last_1, last_2, last_3, last_4, multiple[wrong], jb[xxx], temp_list)
+                if vote_mode == 2 and vote_retime > 9:
+                    print('余数,最大错:', maxwrong, "当金币：", current_jinbi, '今收益', temp, '基倍', xxx, '预收',
+                          str(yjshouru / 10000) + '万')
+                    list_v = mod3_bm(last_1, last_2, last_3, last_4, multiple[wrong], jb[xxx], temp_list, 1)
                 if list_v:
                     vote_list = vote_thing(current_period, list_v)
                 else:
@@ -348,70 +359,117 @@ def do_16():
             time.sleep(5)
 
 
-# def bigandmail(s1, s2, s3, s4, multiple, bt):
-#     # 该方法返回需要购买的列表
-#     s1 = int(s1)
-#     s2 = int(s2)
-#     s3 = int(s3)
-#     s4 = int(s4)
-#     list_num = [1, 3, 6, 10, 15, 21, 25, 27, 27, 25, 21, 15, 10, 6, 3, 1]
-#     if s1 > 7 and s1 < 14 and s1 < 11:  # 当前期为中小
-#         # 判断假如不是中边中的情况，则直接跟中小
-#         if (s2 < 8 or s2 > 13) and (s3 > 7 and s3 < 14):
-#             # 中边中结构，跳过投注
-#             print('中边中结构，跳过')
-#             return []
-#         elif s2 > 10 and s3 < 11:
-#             for i in range(0, 8):
-#                 list_num[i] = 0
-#             list_num[8] = list_num[8] * bt * multiple
-#             list_num[9] = list_num[9] * bt * multiple
-#             list_num[10] = list_num[10] * bt * multiple
-#             for i in range(11, 16):
-#                 list_num[i] = 0
-#             print('反转中大模式', list_num, '投注倍率:', multiple)
-#             return list_num
-#         else:
-#             for i in range(0, 5):
-#                 list_num[i] = 0
-#             list_num[5] = list_num[5] * bt * multiple
-#             list_num[6] = list_num[6] * bt * multiple
-#             list_num[7] = list_num[7] * bt * multiple
-#             for i in range(8, 16):
-#                 list_num[i] = 0
-#             print('投注中小模式,', list_num, '投注倍率:', multiple)
-#             return list_num
-#     elif s1 > 7 and s1 < 14 and s1 > 10:  # 当前期为中大
-#         if (s2 < 8 or s2 > 13) and (s3 > 7 and s3 < 14):
-#             # 中边中结构，跳过投注
-#             print('中边中结构，跳过')
-#             return []
-#         elif s2 < 11 and s3 > 10:
-#             # 符合大小大的结构，跳过投注
-#             for i in range(0, 5):
-#                 list_num[i] = 0
-#             list_num[5] = list_num[5] * bt * multiple
-#             list_num[6] = list_num[6] * bt * multiple
-#             list_num[7] = list_num[7] * bt * multiple
-#             for i in range(8, 16):
-#                 list_num[i] = 0
-#             # 那应该可以跟投中小
-#             print('反转中小模式', list_num, '投注倍率:', multiple)
-#             return list_num
-#         else:
-#             for i in range(0, 8):
-#                 list_num[i] = 0
-#             list_num[8] = list_num[8] * bt * multiple
-#             list_num[9] = list_num[9] * bt * multiple
-#             list_num[10] = list_num[10] * bt * multiple
-#             for i in range(11, 16):
-#                 list_num[i] = 0
-#             # 那应该可以跟投中小
-#             print('投注中大模式,投注倍率:', multiple)
-#             return list_num
-#     else:
-#         print('不符合中大小模式')
-#         return []
+def mod3_bm(s1, s2, s3, s4, multiple, bt, temp_list, mmode):
+    vote_side = 0  # 0代表不投注，1代表投中小，2代表投中大
+    side = 0  # 0代表上期为边，1代表是中边中，2代表正常，3代表反转
+    s1 = int(s1)
+    s2 = int(s2)
+    s3 = int(s3)
+    s4 = int(s4)
+    list_f = []
+    list_1 = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+    list_num = [1, 3, 6, 10, 15, 21, 25, 27, 27, 25, 21, 15, 10, 6, 3, 1]
+    if mmode == 1:
+        # 取余数0,1
+        a = 0
+        b = 1
+    elif mmode == 2:
+        # 取余数0,2
+        a = 0
+        b = 2
+    else:
+        # 取余数1,2
+        a = 1
+        b = 2
+    if s1 % 3 == a or s1 % 3 == b:
+        if s1 % 3 == s3 % 3 and s2 % 3 != a and s2 % 3 != b:
+            # 跳过，这是余2，余1 ，余2结构
+            vote_side = 0
+            side = 1
+        else:
+            for index, aa in enumerate(list_1):
+                if aa % 3 == a or aa % 3 == b:
+                    list_f.append(aa)  # 获得余数与既定方案的数字
+            if s1 < 11:  # 如果上一期为小,跟着买小，或者是反转
+                if s2 > 10 and s3 < 11:
+                    # 出现小大小结构，反转
+                    shibie = 0
+                    if temp_list:
+                        for index, item in enumerate(temp_list[3:-2]):
+                            if int(item) < 11:
+                                # 假如这期为小，那我们要看下一期和下二期是否能够组成小大小结构。
+                                if int(temp_list[index + 4]) > 10 and int(temp_list[index + 5]) < 11:
+                                    if int(temp_list[index + 2]) > 10:
+                                        shibie = shibie + 1 / (index + 1)
+                                    elif int(temp_list[index + 2]) < 11:
+                                        shibie = shibie - 1 / (index + 1)
+                    if shibie >= 0:
+                        vote_side = 2
+                        side = 3
+                    else:
+                        vote_side = 1
+                        side = 3
+                else:
+                    vote_side = 1
+                    side = 2
+            if s1 > 10:
+                if s2 < 11 and s3 > 10:
+                    # 大小大模式,反转，买中小
+                    shibie = 0
+                    if temp_list:
+                        for index, item in enumerate(temp_list[3:-2]):
+                            if int(item) > 10:
+                                # 假如这期为大，那我们要看下一期和下二期是否能够组成大小大结构。
+                                if int(temp_list[index + 4]) < 11 and int(temp_list[index + 5]) > 10:
+                                    if int(temp_list[index + 2]) < 11:
+                                        shibie = shibie + 1 / (index + 1)
+                                    elif int(temp_list[index + 2]) > 10:
+                                        shibie = shibie - 1 / (index + 1)
+                    if shibie >= 0:
+                        vote_side = 1
+                        side = 3
+                    else:
+                        vote_side = 2
+                        side = 3
+                else:
+                    vote_side = 2
+                    side = 2
+    else:
+        vote_side = 0
+        side = 0
+    if vote_side == 0 and side == 0:
+        print('上期为非投注类，直接跳过----,模式:', mmode)
+        return []
+    elif vote_side == 0 and side == 1:
+        print('上期为010结构，直接跳过----,模式:', mmode)
+        return []
+    else:
+        if vote_side == 1:
+            for i in range(3, 11):
+                if i in list_f:
+                    list_num[i - 3] = list_num[i - 3] * bt * multiple
+                else:
+                    list_num[i - 3] = 0
+            for i in range(8, 16):
+                list_num[i] = 0
+            if side == 2:
+                print('正常投中小模式：', list_num, '投注倍率:', multiple)
+            elif side == 3:
+                print('反转小模式：', list_num, '投注倍率:', multiple)
+            return list_num
+        elif vote_side == 2:
+            for i in range(11, 19):
+                if i in list_f:
+                    list_num[i - 3] = list_num[i - 3] * bt * multiple
+                else:
+                    list_num[i - 3] = 0
+            for i in range(0, 8):
+                list_num[i] = 0
+            if side == 2:
+                print('正常投中大模式：', list_num, '投注倍率:', multiple)
+            elif side == 3:
+                print('反转大模式：', list_num, '投注倍率:', multiple)
+            return list_num
 
 
 def bigandmail(s1, s2, s3, s4, multiple, bt, temp_list):
