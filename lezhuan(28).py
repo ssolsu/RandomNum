@@ -209,7 +209,7 @@ def baseN(num, b):
 def do_16():
     # 初始化判断是否错误,错误的次数
     # 初始化投注倍数
-    jb = [1, 2, 4, 8]
+    jb = [1, 1, 2, 4]
     xxx = 1
     mmode = 2
     # 初始化投注期数
@@ -310,11 +310,11 @@ def do_16():
                         print(repr(e))
                 # 今日收益 等于 当前金币减掉今天第一次记录的金币数量
                 temp = int(current_jinbi) - todayfirstjinbi
-                yjshouru = jb[1] * 73 * 200
+                yjshouru = jb[1] * 73 * 100
                 if temp >= yjshouru:
                     xxx = 1
                     # 设定xxx为1，同时设置今日第一次金币数量为，当前的金币数量，开始第二轮
-                    os._exit(0)
+                    # os._exit(0)
                 s1 = str(int(current_period) - 1)
                 s2 = str(int(current_period) - 2)
                 s3 = str(int(current_period) - 3)
